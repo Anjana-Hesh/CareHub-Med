@@ -34,9 +34,12 @@ interface AppContextProviderProps {
   children: ReactNode;
 }
 
+const currencySymbol = ' ( LKR )'
+
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const value = {
-    doctors
+    doctors,
+    currencySymbol
   };
 
   return (

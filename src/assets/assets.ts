@@ -93,17 +93,17 @@ export interface Doctor {
 }
 
 export const doctors: Doctor[] = [
-  {
-    _id: 'doc1',
-    name: 'Dr. Richard James',
-    image: doc1,
-    speciality: 'General physician',
-    degree: 'MBBS',
-    experience: '4 Years',
-    about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care...',
-    fees: 50,
-    address: { line1: '17th Cross, Richmond', line2: 'Circle, Ring Road, London' }
-  },
+    {
+        _id: 'doc1',
+        name: 'Dr. Richard James',
+        image: doc1,
+        speciality: 'General physician',
+        degree: 'MBBS',
+        experience: '4 Years',
+        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care...',
+        fees: 50,
+        address: { line1: '17th Cross, Richmond', line2: 'Circle, Ring Road, London' }
+    },
     {
         _id: 'doc2',
         name: 'Dr. Emily Larson',
@@ -150,7 +150,7 @@ export const doctors: Doctor[] = [
         _id: 'doc5',
         name: 'Dr. Jennifer Garcia',
         image: doc5,
-        speciality: 'Neurologist',
+        speciality: 'Gastroenterologist',
         degree: 'MBBS',
         experience: '4 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',

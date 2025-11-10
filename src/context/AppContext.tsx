@@ -1,45 +1,101 @@
-// import { createContext } from "react";
-// import { doctors } from "../assets/assets";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-// export const AppContext = createContext
+// Type for context value
+interface AppContextType {
+  doctors: any[];
+  currencySymbol: string;
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  backendUrl: string;
+  userData: any;
+  setUserData: React.Dispatch<React.SetStateAction<any>>;
+  loadUserProfileData: () => Promise<void>;
+}
 
-// const AppContextProvider = (props) => {
-
-    
-
-//     const value = {
-//         doctors
-//     }
-
-//     return (
-//         <AppContext.Provider value={value}>
-//             {props.children}
-//         </AppContext.Provider>
-//     )
-// }
-
-// export default AppContextProvider
-
-
-import { createContext, ReactNode } from "react";
-import { doctors } from "../assets/assets";
-
-// 1. Create context properly with a default value
-export const AppContext = createContext({
-  doctors: [] as typeof doctors // TypeScript knows doctors' type
+// Default empty context value (for initialization)
+export const AppContext = createContext<AppContextType>({
+  doctors: [],
+  currencySymbol: " ( LKR )",
+  token: null,
+  setToken: () => {},
+  backendUrl: "",
+  userData: null,
+  setUserData: () => {},
+  loadUserProfileData: async () => {},
 });
 
-// 2. Type the props for your provider
+// Type for provider props
 interface AppContextProviderProps {
   children: ReactNode;
 }
 
-const currencySymbol = ' ( LKR )'
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  const value = {
+  
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const currencySymbol = " ( LKR )";
+  const [token , setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') :  "");
+  const[userData , setUserData] = useState(false)
+
+  const getDoctorsData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/v1/doctor/list`);
+
+      if (data.success) {
+        setDoctors(data.doctors);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  };
+
+  const loadUserProfileData = async () => {
+
+    try {
+      
+      const { data } = await axios.get(`${backendUrl}/api/v1/user/get-profile`,{headers: {token:token}})
+
+      if (data.success) {
+        setUserData(data.userData)
+      } else {
+        toast.error(data.message)
+      }
+
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getDoctorsData();
+  }, []);
+
+  useEffect (() => {
+
+    if (token) {
+      loadUserProfileData()
+    }else{
+      setUserData(false)
+    }
+
+  },[token])
+
+  const value: AppContextType = {
     doctors,
-    currencySymbol
+    currencySymbol,
+    token ,
+    setToken,
+    backendUrl,
+    userData,
+    setUserData,
+    loadUserProfileData
   };
 
   return (

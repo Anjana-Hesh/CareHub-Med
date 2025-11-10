@@ -6,12 +6,18 @@ import { toast } from "react-toastify";
 interface AppContextType {
   doctors: any[];
   currencySymbol: string;
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  backendUrl: string;
 }
 
 // Default empty context value (for initialization)
 export const AppContext = createContext<AppContextType>({
   doctors: [],
   currencySymbol: " ( LKR )",
+  token: null,
+  setToken: () => {},
+  backendUrl: ""
 });
 
 // Type for provider props
@@ -22,9 +28,10 @@ interface AppContextProviderProps {
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  // useState moved inside the function (this fixes your error)
+  
   const [doctors, setDoctors] = useState<any[]>([]);
   const currencySymbol = " ( LKR )";
+  const [token , setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') :  "");
 
   const getDoctorsData = async () => {
     try {
@@ -48,6 +55,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const value: AppContextType = {
     doctors,
     currencySymbol,
+    token ,
+    setToken,
+    backendUrl
   };
 
   return (

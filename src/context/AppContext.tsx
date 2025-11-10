@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 // Type for context value
 interface AppContextType {
   doctors: any[];
+  getDoctorsData: () => Promise<void>;
   currencySymbol: string;
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
@@ -17,6 +18,7 @@ interface AppContextType {
 // Default empty context value (for initialization)
 export const AppContext = createContext<AppContextType>({
   doctors: [],
+  getDoctorsData: async () => {},
   currencySymbol: " ( LKR )",
   token: null,
   setToken: () => {},
@@ -89,6 +91,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const value: AppContextType = {
     doctors,
+    getDoctorsData,
     currencySymbol,
     token ,
     setToken,

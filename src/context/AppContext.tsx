@@ -9,6 +9,9 @@ interface AppContextType {
   token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   backendUrl: string;
+  userData: any;
+  setUserData: React.Dispatch<React.SetStateAction<any>>;
+  loadUserProfileData: () => Promise<void>;
 }
 
 // Default empty context value (for initialization)
@@ -17,7 +20,10 @@ export const AppContext = createContext<AppContextType>({
   currencySymbol: " ( LKR )",
   token: null,
   setToken: () => {},
-  backendUrl: ""
+  backendUrl: "",
+  userData: null,
+  setUserData: () => {},
+  loadUserProfileData: async () => {},
 });
 
 // Type for provider props
@@ -32,6 +38,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [doctors, setDoctors] = useState<any[]>([]);
   const currencySymbol = " ( LKR )";
   const [token , setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') :  "");
+  const[userData , setUserData] = useState(false)
 
   const getDoctorsData = async () => {
     try {
@@ -48,16 +55,47 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
   };
 
+  const loadUserProfileData = async () => {
+
+    try {
+      
+      const { data } = await axios.get(`${backendUrl}/api/v1/user/get-profile`,{headers: {token:token}})
+
+      if (data.success) {
+        setUserData(data.userData)
+      } else {
+        toast.error(data.message)
+      }
+
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  }
+
   useEffect(() => {
     getDoctorsData();
   }, []);
+
+  useEffect (() => {
+
+    if (token) {
+      loadUserProfileData()
+    }else{
+      setUserData(false)
+    }
+
+  },[token])
 
   const value: AppContextType = {
     doctors,
     currencySymbol,
     token ,
     setToken,
-    backendUrl
+    backendUrl,
+    userData,
+    setUserData,
+    loadUserProfileData
   };
 
   return (

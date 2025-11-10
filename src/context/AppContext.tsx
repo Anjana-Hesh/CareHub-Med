@@ -1,45 +1,53 @@
-// import { createContext } from "react";
-// import { doctors } from "../assets/assets";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-// export const AppContext = createContext
+// Type for context value
+interface AppContextType {
+  doctors: any[];
+  currencySymbol: string;
+}
 
-// const AppContextProvider = (props) => {
-
-    
-
-//     const value = {
-//         doctors
-//     }
-
-//     return (
-//         <AppContext.Provider value={value}>
-//             {props.children}
-//         </AppContext.Provider>
-//     )
-// }
-
-// export default AppContextProvider
-
-
-import { createContext, ReactNode } from "react";
-import { doctors } from "../assets/assets";
-
-// 1. Create context properly with a default value
-export const AppContext = createContext({
-  doctors: [] as typeof doctors // TypeScript knows doctors' type
+// Default empty context value (for initialization)
+export const AppContext = createContext<AppContextType>({
+  doctors: [],
+  currencySymbol: " ( LKR )",
 });
 
-// 2. Type the props for your provider
+// Type for provider props
 interface AppContextProviderProps {
   children: ReactNode;
 }
 
-const currencySymbol = ' ( LKR )'
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  const value = {
+  // useState moved inside the function (this fixes your error)
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const currencySymbol = " ( LKR )";
+
+  const getDoctorsData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/v1/doctor/list`);
+
+      if (data.success) {
+        setDoctors(data.doctors);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getDoctorsData();
+  }, []);
+
+  const value: AppContextType = {
     doctors,
-    currencySymbol
+    currencySymbol,
   };
 
   return (

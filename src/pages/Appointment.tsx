@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import RelatedDoctors from '../components/RelatedDoctors';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import { bookAppointmentService } from '../services/auth';
 
 interface Doctor {
     _id: string;
@@ -152,7 +152,8 @@ const Appointment = () => {
 
             const slotDate = `${day}-${month}-${year}`
 
-            const { data } = await axios.post(`${backendUrl}/api/v1/user/book-appointment`, { docId, slotDate, slotTime }, { headers: { token } })
+            // const { data } = await axios.post(`${backendUrl}/api/v1/user/book-appointment`, { docId, slotDate, slotTime }, { headers: { token } })
+            const data = await bookAppointmentService(docId, slotDate, slotTime)
 
             if (data.success) {
                 toast.success(data.message)

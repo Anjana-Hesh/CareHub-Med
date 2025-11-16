@@ -13,8 +13,9 @@ const Navbar = () => {
     const [showDropdown, setShowDropdown] = useState(false)
 
     const logout = () => {
-        setToken("")
+        navigate('/login')
         localStorage.removeItem('token')
+        setToken("")
     }
 
   return (

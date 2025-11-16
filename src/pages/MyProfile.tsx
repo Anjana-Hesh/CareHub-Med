@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { updateUserDataService } from "../services/auth";
 
 const MyProfile = () => {
   
@@ -25,7 +25,8 @@ const MyProfile = () => {
 
       image && formData.append('image',image)
 
-      const { data } = await axios.post(`${backendUrl}/api/v1/user/update-profile`, formData,{headers: {token:token}})
+      // const { data } = await axios.post(`${backendUrl}/api/v1/user/update-profile`, formData,{headers: {token:token}})
+      const data = await updateUserDataService(formData)
 
       if (data.success) {
         toast.success(data.message)

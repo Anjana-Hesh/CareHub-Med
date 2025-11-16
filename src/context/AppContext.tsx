@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { getDoctorsDataService } from "../services/doctor";
+import { loadUserProfileDataService } from "../services/auth";
 
 // Type for context value
 interface AppContextType {
@@ -44,7 +45,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const getDoctorsData = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/v1/doctor/list`);
+      // const { data } = await axios.get(`${backendUrl}/api/v1/doctor/list`);
+      const data = await getDoctorsDataService()
 
       if (data.success) {
         setDoctors(data.doctors);
@@ -61,7 +63,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     try {
       
-      const { data } = await axios.get(`${backendUrl}/api/v1/user/get-profile`,{headers: {token:token}})
+      // const { data } = await axios.get(`${backendUrl}/api/v1/user/get-profile`,{headers: {token:token}})
+      const data = await loadUserProfileDataService()
 
       if (data.success) {
         setUserData(data.userData)

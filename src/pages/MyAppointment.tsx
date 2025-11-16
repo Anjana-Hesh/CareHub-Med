@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { cancelAppointmentService, getUserAppointmentsService } from '../services/auth';
 
 interface Address {
   line1: string;
@@ -39,9 +39,11 @@ const MyAppointment: React.FC = () => {
 
   const getUserAppointments = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/v1/user/appointments`, {
-        headers: { token }
-      });
+      // const { data } = await axios.get(`${backendUrl}/api/v1/user/appointments`, {
+      //   headers: { token }
+      // });
+
+      const data = await getUserAppointmentsService()
 
       if (data.success && Array.isArray(data.appointments)) {
         setAppointments([...data.appointments].reverse());
@@ -60,7 +62,8 @@ const MyAppointment: React.FC = () => {
     try {
       
       // console.log(appointmentId)
-      const { data } = await axios.post(`${backendUrl}/api/v1/user/cancel-appointment`, {appointmentId}, {headers: {token: token}})
+      // const { data } = await axios.post(`${backendUrl}/api/v1/user/cancel-appointment`, {appointmentId}, {headers: {token: token}})
+      const data = await cancelAppointmentService(appointmentId)
 
       if (data.success) {
         toast.success(data.message)

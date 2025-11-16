@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { login, register } from '../services/auth'
 
 const Login = () => {
 
@@ -22,7 +22,8 @@ const Login = () => {
       
       if (state === 'Sign Up') {
         
-        const { data } = await axios.post(`${backendUrl}/api/v1/user/register`, { name, email, password });
+        // const { data } = await axios.post(`${backendUrl}/api/v1/user/register`, { name, email, password });
+        const data = await register(name , email , password)
 
         if (data.success) {
           localStorage.setItem('token',data.token)
@@ -33,7 +34,8 @@ const Login = () => {
 
       } else {
 
-        const { data } = await axios.post(`${backendUrl}/api/v1/user/login`, { email, password });
+        // const { data } = await axios.post(`${backendUrl}/api/v1/user/login`, { email, password });
+        const data = await login(email , password)
 
         if (data.success) {
           localStorage.setItem('token',data.token)

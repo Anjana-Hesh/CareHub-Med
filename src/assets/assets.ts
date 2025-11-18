@@ -18,15 +18,15 @@ import info_icon from './info_icon.svg';
 import upload_icon from './upload_icon.png';
 import stripe_logo from './stripe_logo.png';
 import razorpay_logo from './razorpay_logo.png';
-import doc1 from './doc1.png';
-import doc2 from './doc2.png';
-import doc3 from './doc3.png';
-import doc4 from './doc4.png';
-import doc5 from './doc5.png';
-import doc6 from './doc6.png';
-import doc7 from './doc7.png';
-import doc8 from './doc8.png';
-import doc9 from './doc9.png';
+import doc1 from './Anjana Doc.png';
+import doc2 from './Tharusha Doc.png';
+import doc3 from './Rethmi Doc.png';
+import doc4 from './Wasana Doc.png';
+import doc5 from './Sachini Doc.png';
+import doc6 from './Nisal Doc.png';
+import doc7 from './Dilmi Doc.png';
+import doc8 from './Chathura Doc.png';
+import doc9 from './Prabhadee Doc.png';
 import doc10 from './doc10.png';
 import doc11 from './doc11.png';
 import doc12 from './doc12.png';
@@ -95,167 +95,167 @@ export interface Doctor {
 export const doctors: Doctor[] = [
     {
         _id: 'doc1',
-        name: 'Dr. Richard James',
+        name: 'Dr. Anjana Heshan',
         image: doc1,
         speciality: 'General physician',
         degree: 'MBBS',
-        experience: '4 Years',
-        about: 'Dr. James specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
-        fees: 3000, // LKR 3,000
-        address: { line1: '17th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 7' } // Address contextually updated
+        experience: '5 Years',
+        about: 'Dr. Anjana specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
+        fees: 5200, // LKR 5,200
+        address: { line1: 'Ihala Omaththa, Digala', line2: 'Elpitiya' }
     },
     {
         _id: 'doc2',
-        name: 'Dr. Emily Larson',
+        name: 'Dr. Tharusha Sandaruwan',
         image: doc2,
         speciality: 'Gynecologist',
         degree: 'MBBS',
         experience: '3 Years',
-        about: 'Dr. Larson is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
+        about: 'Dr. Tharusha is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
         fees: 4000, // LKR 4,000
-        address: { line1: '27th Cross, Richmond', line2: 'Circle, Ring Road, Kandy' }
+        address: { line1: 'Ella', line2: 'Kurudugaha' }
     },
     {
         _id: 'doc3',
-        name: 'Dr. Sarah Patel',
+        name: 'Dr. Sainsa Rethmi',
         image: doc3,
         speciality: 'Dermatologist',
         degree: 'MBBS',
         experience: '1 Years',
-        about: 'Dr. Patel is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
+        about: 'Dr. Rethmi is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
         fees: 2500, // LKR 2,500
-        address: { line1: '37th Cross, Richmond', line2: 'Circle, Ring Road, Galle' }
+        address: { line1: 'Obada Ella', line2: 'Bandarawela.' }
     },
     {
         _id: 'doc4',
-        name: 'Dr. Christopher Lee',
+        name: 'Dr. Nethmi Wasana Jayasinghe',
         image: doc4,
         speciality: 'Pediatricians',
         degree: 'MBBS',
-        experience: '2 Years',
-        about: 'Dr. Lee is a dedicated **Pediatrician**, providing expert medical care for infants, children, and adolescents, with a focus on growth monitoring, vaccinations, and developmental health.',
-        fees: 3500, // LKR 3,500
-        address: { line1: '47th Cross, Richmond', line2: 'Circle, Ring Road, Battaramulla' }
+        experience: '5 Years',
+        about: 'Dr. Jayasighe is a dedicated **Pediatrician**, providing expert medical care for infants, children, and adolescents, with a focus on growth monitoring, vaccinations, and developmental health.',
+        fees: 5500, // LKR 5,500
+        address: { line1: 'Diyapitagallana , nawadagala, ', line2: 'Elpitiya.' }
     },
     {
         _id: 'doc5',
-        name: 'Dr. Jennifer Garcia',
+        name: 'Dr. Sachini Thakshila',
         image: doc5,
         speciality: 'Gastroenterologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Garcia is a **Gastroenterologist**, specializing in the digestive system, including diagnosis and treatment of conditions affecting the stomach, intestines, liver, and pancreas.',
+        about: 'Dr. Sachini is a **Gastroenterologist**, specializing in the digestive system, including diagnosis and treatment of conditions affecting the stomach, intestines, liver, and pancreas.',
         fees: 4500, // LKR 4,500
-        address: { line1: '57th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 3' }
+        address: { line1: 'Diyathalawa,', line2: 'Bandarawela.' }
     },
     {
         _id: 'doc6',
-        name: 'Dr. Andrew Williams',
+        name: 'Dr. Nisal Sahansith',
         image: doc6,
         speciality: 'Neurologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Williams is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
+        about: 'Dr. Nisal is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
         fees: 4000, // LKR 4,000
-        address: { line1: '57th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 5' }
+        address: { line1: 'Wanduramba, mukalana, ', line2: 'Galle' }
     },
     {
         _id: 'doc7',
-        name: 'Dr. Christopher Davis',
+        name: 'Dr. Dilmi Kaushalya',
         image: doc7,
         speciality: 'General physician',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Davis specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
+        about: 'Dr. Dilmi specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
         fees: 3000, // LKR 3,000
-        address: { line1: '17th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 7' }
+        address: { line1: 'Unknown road, ', line2: 'Galle' }
     },
     {
         _id: 'doc8',
-        name: 'Dr. Timothy White',
+        name: 'Dr. Chathura Lakshan',
         image: doc8,
         speciality: 'Gynecologist',
         degree: 'MBBS',
         experience: '3 Years',
-        about: 'Dr. White is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
+        about: 'Dr. Chathura is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
         fees: 4000, // LKR 4,000
-        address: { line1: '27th Cross, Richmond', line2: 'Circle, Ring Road, Kandy' }
+        address: { line1: 'Jungle vibe', line2: 'Kurudugaha.' }
     },
     {
         _id: 'doc9',
-        name: 'Dr. Ava Mitchell',
+        name: 'Dr. Prbhadee Induwara',
         image: doc9,
         speciality: 'Dermatologist',
         degree: 'MBBS',
         experience: '1 Years',
-        about: 'Dr. Mitchell is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
+        about: 'Dr. Prbhadee is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
         fees: 2500, // LKR 2,500
-        address: { line1: '37th Cross, Richmond', line2: 'Circle, Ring Road, Galle' }
+        address: { line1: 'unknown junction,', line2: 'Galle. ' }
     },
     {
         _id: 'doc10',
-        name: 'Dr. Jeffrey King',
+        name: 'Dr. Dinan Themika',
         image: doc10,
         speciality: 'Pediatricians',
         degree: 'MBBS',
         experience: '2 Years',
-        about: 'Dr. King is a dedicated **Pediatrician**, providing expert medical care for infants, children, and adolescents, with a focus on growth monitoring, vaccinations, and developmental health.',
+        about: 'Dr. Dinan is a dedicated **Pediatrician**, providing expert medical care for infants, children, and adolescents, with a focus on growth monitoring, vaccinations, and developmental health.',
         fees: 3500, // LKR 3,500
-        address: { line1: '47th Cross, Richmond', line2: 'Circle, Ring Road, Battaramulla' }
+        address: { line1: 'Unknown panthayka, ', line2: 'Galle. ' }
     },
     {
         _id: 'doc11',
-        name: 'Dr. Zoe Kelly',
+        name: 'Dr. Charuka Hansaja',
         image: doc11,
         speciality: 'Neurologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Kelly is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
+        about: 'Dr. Charuka is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
         fees: 4000, // LKR 4,000
-        address: { line1: '57th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 5' }
+        address: { line1: 'Dont know pradesh, ', line2: 'Galle. ' }
     },
     {
         _id: 'doc12',
-        name: 'Dr. Patrick Harris',
+        name: 'Dr. Kamesh de Silva',
         image: doc12,
         speciality: 'Neurologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Harris is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
+        about: 'Dr. Silva is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
         fees: 4000, // LKR 4,000
-        address: { line1: '57th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 5' }
+        address: { line1: 'Wathugedara, ', line2: 'Ambalangoda. ' }
     },
     {
         _id: 'doc13',
-        name: 'Dr. Chloe Evans',
+        name: 'Dr. Sasindu Denuwan',
         image: doc13,
         speciality: 'General physician',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Evans specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
+        about: 'Dr. Sasindu specializes in **General medicine**, focusing on routine check-ups, managing chronic diseases, and promoting overall wellness and preventive care for adult patients.',
         fees: 3000, // LKR 3,000
-        address: { line1: '17th Cross, Richmond', line2: 'Circle, Ring Road, Colombo 7' }
+        address: { line1: 'Yakkalamulla, ', line2: 'Galle.' }
     },
     {
         _id: 'doc14',
-        name: 'Dr. Ryan Martinez',
+        name: 'Dr. Thanuja Sammana',
         image: doc14,
         speciality: 'Gynecologist',
         degree: 'MBBS',
         experience: '3 Years',
-        about: 'Dr. Martinez is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
+        about: 'Dr. Thanuja is a **Gynecologist**, dedicated to comprehensive women\'s reproductive health, including prenatal care, preventative screenings, and surgical procedures.',
         fees: 4000, // LKR 4,000
-        address: { line1: '27th Cross, Richmond', line2: 'Circle, Ring Road, Kandy' }
+        address: { line1: 'Ihala omaththa, Digala, ', line2: 'Elpitiyay' }
     },
     {
         _id: 'doc15',
-        name: 'Dr. Amelia Hill',
+        name: 'Dr. Vishwa Sudesh',
         image: doc15,
         speciality: 'Dermatologist',
         degree: 'MBBS',
         experience: '1 Years',
-        about: 'Dr. Hill is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
+        about: 'Dr. Vishwa is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
         fees: 2500, // LKR 2,500
-        address: { line1: '37th Cross, Richmond', line2: 'Circle, Ring Road, Galle' }
+        address: { line1: 'Ihala Omaththa,  Mullakanda, ', line2: 'Elpitiya. ' }
     },
 ]

@@ -8,6 +8,7 @@ import { AdminContext } from '../context/AdminContext'
 
 const Login = () => {
   const { token, setToken } = useContext(AppContext)
+  // const { refresh_token , setRefresh_token} = useContext(AppContext)
   const {dToken , setDToken} = useContext(DoctorContext)
   const { aToken , setAToken} = useContext(AdminContext)
   const navigate = useNavigate()
@@ -62,16 +63,19 @@ const Login = () => {
         if (roles.includes('ADMIN')) {
           console.log('➡️ Navigating to ADMIN dashboard')
           localStorage.setItem('aToken', data.data.token)
+          localStorage.setItem('refresh_token',data.data.refresh_token)
           setAToken(data.data.token)
           navigate('/admin-dashboard')
         } else if (roles.includes('DOCTOR') || roles[0] === 'DOCTOR') {
           console.log('➡️ Navigating to DOCTOR dashboard')
           localStorage.setItem('dToken', data.data.token)
+          localStorage.setItem('refresh_token',data.data.refresh_token)
           setDToken(data.data.token)
           navigate('/doctor-dashboard')
         } else {
           console.log('➡️ Navigating to USER home')
           localStorage.setItem('token', data.data.token)
+          localStorage.setItem('refresh_token',data.data.refresh_token)
           setToken(data.data.token)
           navigate('/')
         }

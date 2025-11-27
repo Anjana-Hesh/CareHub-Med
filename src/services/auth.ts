@@ -90,3 +90,8 @@ export const updateUserDataService = async (formData) => {
 
     return resp.data;
 }
+
+export const refreshTokens = async (refreshToken: string) => {
+    const resp = await api.post("/user/refresh", { token: refreshToken })
+    return resp.data
+}

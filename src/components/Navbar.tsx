@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
@@ -14,16 +14,15 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  // Logout function
   const logout = () => {
     if (aToken) { setAToken(''); localStorage.removeItem('aToken'); }
     if (dToken) { setDToken(''); localStorage.removeItem('dToken'); }
     if (token) { setToken(''); localStorage.removeItem('token'); }
+    localStorage.removeItem('refresh_token');
     localStorage.removeItem('roles');
     navigate('/login');
   };
 
-  // Determine current role
   let role: 'ADMIN' | 'DOCTOR' | 'USER' | null = null;
   if (aToken) role = 'ADMIN';
   else if (dToken) role = 'DOCTOR';
@@ -38,7 +37,6 @@ const Navbar = () => {
         onClick={() => navigate('/')}
       />
 
-      {/* Desktop links */}
       <ul className='hidden md:flex items-center gap-5 font-medium'>
         <NavLink to='/'><li>HOME</li></NavLink>
         {role === 'USER' && <NavLink to='/doctors'><li>ALL DOCTORS</li></NavLink>}
@@ -48,7 +46,6 @@ const Navbar = () => {
         {role === 'DOCTOR' && <NavLink to='/doctor-dashboard'><li>DASHBOARD</li></NavLink>}
       </ul>
 
-      {/* Right side */}
       <div className='flex items-center gap-4'>
         {role ? (
           <div className='relative flex items-center gap-2'>
@@ -70,7 +67,6 @@ const Navbar = () => {
               </button>
             )}
 
-            {/* Dropdown for USER */}
             {role === 'USER' && showDropdown && (
               <div className='absolute right-0 top-full mt-2 bg-white shadow-md rounded w-48 flex flex-col z-20'>
                 <p
@@ -103,7 +99,6 @@ const Navbar = () => {
           </button>
         )}
 
-        {/* Mobile menu toggle */}
         <img
           onClick={() => setShowMenu(true)}
           className='w-6 md:hidden cursor-pointer'
@@ -112,7 +107,6 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Mobile menu */}
       <div className={`${showMenu ? 'fixed w-full h-full' : 'h-0 w-0'} top-0 right-0 z-30 overflow-hidden bg-white transition-all md:hidden`}>
         <div className='flex items-center justify-between px-5 py-6'>
           <img src={assets.logo} alt='Logo' className='w-36' />

@@ -26,22 +26,25 @@ const DoctorDashboard = () => {
   const downloadPDF = () => {
     const doc = new jsPDF()
 
+  // Main Title --------------  
     doc.setFontSize(24)
     doc.setTextColor(33, 150, 243) // A primary blue color
     doc.text("Doctor Dashboard Report", 10, 15)
 
+  // Summary Details -------------  
     doc.setFontSize(14)
     doc.setTextColor(51, 51, 51) // Dark gray for text
     doc.text(`Earnings: ${currency}${dashData.earnings}`, 10, 35)
     doc.text(`Appointments: ${dashData.appointments}`, 10, 45)
     doc.text(`Patients: ${dashData.patients}`, 10, 55)
 
+  // Latest Appointments -----------------  
     doc.setFontSize(16)
     doc.setTextColor(0, 0, 0) // Black for section title
     doc.text("Latest Appointments:", 10, 75)
     
     let y = 85
-    dashData.latestAppointments.forEach((item, index) => {
+    dashData.latestAppointments.forEach((item: any, index: any) => {
       let statusText = item.cancelled ? "Cancelled" : item.isCompleted ? "Completed" : "Pending"
       let statusColor = item.cancelled ? [255, 0, 0] : item.isCompleted ? [0, 128, 0] : [255, 165, 0] // Red, Green, Orange
       
@@ -108,7 +111,7 @@ const DoctorDashboard = () => {
         <div className='divide-y divide-gray-100'>
           {
             dashData.latestAppointments.length > 0 ? (
-              dashData.latestAppointments.map((item, index) => (
+              dashData.latestAppointments.map((item: any, index: any) => (
                 <div className='flex items-center px-6 py-4 gap-4 transition-colors duration-150 hover:bg-indigo-50/50' key={index}>
                   
                   <img className='rounded-full w-10 h-10 object-cover border-2 border-indigo-100' src={item.userData.image} alt="User" />

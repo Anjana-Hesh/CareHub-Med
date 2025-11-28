@@ -38,10 +38,10 @@ const Navbar = () => {
       />
 
       <ul className='hidden md:flex items-center gap-5 font-medium'>
-        <NavLink to='/'><li>HOME</li></NavLink>
+        {role === 'USER' && <NavLink to='/'><li>HOME</li></NavLink>}
         {role === 'USER' && <NavLink to='/doctors'><li>ALL DOCTORS</li></NavLink>}
-        <NavLink to='/about'><li>ABOUT</li></NavLink>
-        <NavLink to='/contact'><li>CONTACT</li></NavLink>
+        { role === 'USER' && <NavLink to='/about'><li>ABOUT</li></NavLink>}
+        { role === 'USER' && <NavLink to='/contact'><li>CONTACT</li></NavLink>}
         {role === 'ADMIN' && <NavLink to='/admin-dashboard'><li>DASHBOARD</li></NavLink>}
         {role === 'DOCTOR' && <NavLink to='/doctor-dashboard'><li>DASHBOARD</li></NavLink>}
       </ul>

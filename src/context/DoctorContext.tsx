@@ -4,7 +4,7 @@ import { doctorCancelAppintmentsService, doctorCompleteAppintmentsService, getAp
 
 export const DoctorContext = createContext()
 
-const DoctorContextProvider = (props) => {
+const DoctorContextProvider = (props: any) => {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -137,7 +137,7 @@ const DoctorContextProvider = (props) => {
 
     return(
         <DoctorContext.Provider value={value}>
-            {props.children}
+            {props.children}                  {/*Used Default props*/}
         </DoctorContext.Provider>
     )
 }

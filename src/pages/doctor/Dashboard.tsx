@@ -6,7 +6,8 @@ import jsPDF from 'jspdf'
 
 const DoctorDashboard = () => {
 
-  const { dashData, getDashData, completeAppointment, doctorCancelAppintmentsService } = useContext(DoctorContext)
+  // Object distraction ----- (Access without dot notation)
+  const { dashData, getDashData, completeAppointment, doctorCancelAppintmentsService } = useContext(DoctorContext)  
   const { currency, slotDateFormat } = useContext(AppContext)
 
   const [showReport, setShowReport] = useState(false)

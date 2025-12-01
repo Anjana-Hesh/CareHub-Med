@@ -4,7 +4,7 @@ import { adminCancelAppintmentsService, changeAvailabilityService, getAllAppoint
 
 export const AdminContext = createContext()
 
-const AdminContextProvider = (props) => {
+const AdminContextProvider = (props: any) => {
 
     const [aToken , setAToken] = useState(localStorage.getItem('aToken')? localStorage.getItem('aToken') : '')
     const [doctors,setDoctors] = useState([])

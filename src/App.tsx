@@ -12,6 +12,7 @@ import Sidebar from './components/SideBar'
 import Footer from './components/Footer'
 
 import Login from './pages/Login'
+import ForgetPassword from './pages/ForgetPassword'
 
 // Admin pages
 import Dashboard from './pages/admin/AdminDashboard'
@@ -32,6 +33,7 @@ import Contact from './pages/Contact'
 import MyProfile from './pages/MyProfile'
 import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
+import ResetPassword from './pages/ResetPassword'
 
 const App = () => {
   const { aToken } = useContext(AdminContext)
@@ -87,6 +89,8 @@ const App = () => {
         <Route path='/doctors' element={<Doctor />} />
         <Route path='/doctors/:speciality' element={<Doctor />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/forget-password' element={<ForgetPassword />} />
+        <Route path='/reset-password/:token' element={<ResetPassword />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/my-appointments' element={<MyAppointment />} />

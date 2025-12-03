@@ -30,7 +30,7 @@ export const loadUserProfileDataService = async () => {
     return resp.data;
 };
 
-export const bookAppointmentService = async (docId , slotDate, slotTime) => {
+export const bookAppointmentService = async (docId: any , slotDate:any, slotTime: any) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -58,7 +58,7 @@ export const getUserAppointmentsService = async () => {
     return resp.data;
 }
 
-export const cancelAppointmentService = async (appointmentId) => {
+export const cancelAppointmentService = async (appointmentId: any) => {
 
     const token = localStorage.getItem("token");
 
@@ -75,7 +75,7 @@ export const cancelAppointmentService = async (appointmentId) => {
     return resp.data;
 }
 
-export const updateUserDataService = async (formData) => {
+export const updateUserDataService = async (formData: any) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -95,3 +95,25 @@ export const refreshTokens = async (refreshToken: string) => {
     const resp = await api.post("/user/refresh", { token: refreshToken })
     return resp.data
 }
+
+export const sendPasswordResetEmail = async (email: string) => {
+    
+    const resp = await api.post("/user/forget-password", { email })
+    
+    return resp.data
+}
+
+// export const resetPassword = async (token: any, newPassword: string) => {
+//     const resp = await api.put(`/user/reset-password/${token}`, { newPassword });
+//     return resp.data;
+// }
+
+export const resetPassword = async (token: string, newPassword: string) => {
+    const resp = await api.put(
+        `/user/reset-password`,
+        { newPassword },
+        { headers: { "x-reset-token": token } }
+    );
+    return resp.data;
+};
+

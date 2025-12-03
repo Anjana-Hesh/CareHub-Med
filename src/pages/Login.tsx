@@ -19,6 +19,10 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleForgetPasswordClick = () => {
+    navigate('/forget-password') 
+  }
+
   const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault()
   setIsLoading(true)
@@ -177,15 +181,27 @@ const Login = () => {
             </span>
           </p>
         ) : (
-          <p>
-            Create a new account?{' '}
-            <span
-              onClick={() => setState('Sign Up')}
-              className='text-[#5F6FFF] underline cursor-pointer'
-            >
-              Click here
-            </span>
-          </p>
+          <div className='w-full flex flex-col gap-2 mt-2'>
+            <p className='w-full text-center'>
+              Create a new account?{' '}
+              <span
+                onClick={() => setState('Sign Up')}
+                className='text-[#5F6FFF] underline cursor-pointer font-medium hover:text-[#4F5FEF] transition-colors'
+              >
+                Click here
+              </span>
+            </p>
+
+            <p className='w-full text-center text-sm text-gray-500'>
+              Forget Password?{' '}
+              <span
+                onClick={handleForgetPasswordClick}
+                className='text-[#5F6FFF] underline cursor-pointer font-medium hover:text-[#4F5FEF] transition-colors'
+              >
+                Change here
+              </span>
+            </p>
+          </div>
         )}
       </div>
     </form>

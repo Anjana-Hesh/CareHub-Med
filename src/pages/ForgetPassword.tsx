@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { sendPasswordResetEmail } from '../services/auth'
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
 
-  const handleForgetPassword = async (event) => {
+  const handleForgetPassword = async (event: FormEvent ) => {
     event.preventDefault()
     
     if (!email) {
@@ -19,20 +20,20 @@ const ForgetPassword = () => {
     setMessage('')
     
     try {
-      // const response = await sendPasswordResetEmail(email)
+      const response = await sendPasswordResetEmail(email)
       
       // Placeholder successful response logic
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // if (response.success) { // Check your actual API response structure
+      if (response.success) {
       
       const successMessage = '✅ A password reset link has been sent to your email address.'
       setMessage(successMessage)
       toast.success(successMessage)
       setEmail('')
-      // } else {
-      //   toast.error(response.message || 'Failed to send reset link.')
-      // }
+      } else {
+        toast.error(response.message || 'Failed to send reset link.')
+      }
       
     } catch (error: any) {
       console.error('Password reset error:', error)
@@ -40,33 +41,29 @@ const ForgetPassword = () => {
     } finally {
       setIsLoading(false)
     }
-    // --- END: Replace placeholder logic ---
+    
   }
 
   return (
     <form onSubmit={handleForgetPassword} className='min-h-[80vh] flex items-center justify-center py-10'>
       <div className='flex flex-col gap-5 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-2xl bg-white'>
         
-        {/* Title */}
         <p className='text-3xl font-bold m-auto'>
           <span className='text-[#5F6FFF]'>
             Forgot Password
           </span>
         </p>
         
-        {/* Instruction */}
         <p className='text-center w-full text-gray-600 mb-3'>
           Enter your email address to receive a **password reset link**.
         </p>
 
-        {/* Success Message Display */}
         {message && (
           <div className='w-full p-3 bg-green-100 border border-green-400 text-green-700 rounded-md text-center'>
             {message}
           </div>
         )}
 
-        {/* Email Input */}
         <div className='w-full'>
           <p className='font-medium text-gray-700'>Email</p>
           <input
@@ -80,7 +77,6 @@ const ForgetPassword = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type='submit'
           disabled={isLoading}
@@ -91,7 +87,6 @@ const ForgetPassword = () => {
             : 'Send Reset Link'}
         </button>
 
-        {/* Back to Login Link */}
         <p className='w-full text-center mt-2'>
           Remember your password?{' '}
           <Link

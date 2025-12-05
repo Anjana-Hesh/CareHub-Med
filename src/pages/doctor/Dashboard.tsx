@@ -7,7 +7,7 @@ import jsPDF from 'jspdf'
 const DoctorDashboard = () => {
 
   // Object distraction ----- (Access without dot notation)
-  const { dashData, getDashData, completeAppointment, doctorCancelAppintmentsService } = useContext(DoctorContext)  
+  const { dashData, getDashData, completeAppointment, cancelAppointment } = useContext(DoctorContext)
   const { currency, slotDateFormat } = useContext(AppContext)
 
   const [showReport, setShowReport] = useState(false)
@@ -129,7 +129,7 @@ const DoctorDashboard = () => {
                         ? <span className='px-3 py-1 text-xs font-bold text-green-700 bg-green-100 rounded-full'>Completed</span>
                         : <div className='flex items-center gap-1'>
                             <button
-                              onClick={() => doctorCancelAppintmentsService(item._id)}
+                              onClick={() => cancelAppointment(item._id)}
                               className='p-2 rounded-full hover:bg-red-100 transition-colors'
                               title='Cancel Appointment'
                             >

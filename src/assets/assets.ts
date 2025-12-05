@@ -27,7 +27,7 @@ import doc6 from './Nisal Doc.png';
 import doc7 from './Dilmi Doc.png';
 import doc8 from './Chathura Doc.png';
 import doc9 from './Prabhadee Doc.png';
-import doc10 from './doc10.png';
+import doc10 from './docDinan.png';
 import doc11 from './doc11.png';
 import doc12 from './doc12.png';
 import doc13 from './doc13.png';

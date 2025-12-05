@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -36,11 +36,11 @@ import Appointment from './pages/Appointment'
 import ResetPassword from './pages/ResetPassword'
 
 const App = () => {
-  const { aToken } = useContext(AdminContext)
-  const { dToken } = useContext(DoctorContext)
+  const aToken = useContext(AdminContext)?.aToken
+  const dToken = useContext(DoctorContext)?.dToken
   const { token } = useContext(AppContext)
 
-  const isAdmin = !!aToken
+  const isAdmin = !!aToken   // value convert to boolean
   const isDoctor = !!dToken
   const isUser = !!token
 

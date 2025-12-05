@@ -30,7 +30,7 @@ export const loadUserProfileDataService = async () => {
     return resp.data;
 };
 
-export const bookAppointmentService = async (docId: any , slotDate:any, slotTime: any) => {
+export const bookAppointmentService = async (docId: string , slotDate:any, slotTime: any) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -58,7 +58,7 @@ export const getUserAppointmentsService = async () => {
     return resp.data;
 }
 
-export const cancelAppointmentService = async (appointmentId: any) => {
+export const cancelAppointmentService = async (appointmentId: string) => {
 
     const token = localStorage.getItem("token");
 
@@ -75,7 +75,7 @@ export const cancelAppointmentService = async (appointmentId: any) => {
     return resp.data;
 }
 
-export const updateUserDataService = async (formData: any) => {
+export const updateUserDataService = async (formData: FormData) => {
     const token = localStorage.getItem("token");
 
     if (!token) {

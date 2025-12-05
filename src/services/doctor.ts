@@ -23,7 +23,7 @@ export const getAppointmentsService = async () => {
     return resp.data;
 }
 
-export const doctorCancelAppintmentsService = async (appointmentId) => {
+export const doctorCancelAppintmentsService = async (appointmentId: string) => {
     const dToken = localStorage.getItem("dToken");
 
     if (!dToken) {
@@ -39,7 +39,7 @@ export const doctorCancelAppintmentsService = async (appointmentId) => {
     return resp.data;
 }
 
-export const doctorCompleteAppintmentsService = async (appointmentId) => {
+export const doctorCompleteAppintmentsService = async (appointmentId: string) => {
     const dToken = localStorage.getItem("dToken");
 
     if (!dToken) {
@@ -87,7 +87,7 @@ export const getProfileDataService = async () => {
     return resp.data;
 }
 
-export const updateDoctorService = async (updateDate) => {
+export const updateDoctorService = async (updateDate: any) => {
     const dToken = localStorage.getItem("dToken");
 
     if (!dToken) {

@@ -14,7 +14,6 @@ const ResetPassword = () => {
     if (!token) {
       toast.error("Missing password reset token. Please use the link from your email.");
     } else {
-      // Debug: Log the token to see if it's being captured correctly
       console.log('Reset token from URL:', token);
       console.log('Token length:', token.length);
     }
@@ -23,7 +22,6 @@ const ResetPassword = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Validation checks
     if (!token) {
       return toast.error("Reset token is missing.");
     }
@@ -54,7 +52,6 @@ const ResetPassword = () => {
       console.error('Password reset error:', error);
       console.error('Error response:', error.response?.data);
       
-      // More detailed error message
       const errorMessage = error.response?.data?.message || 
                           error.message || 
                           'An error occurred. The link may be expired.';
@@ -77,7 +74,6 @@ const ResetPassword = () => {
         </div>
 
         <form onSubmit={handleSubmit} className='space-y-6'>
-          {/* New Password Input */}
           <div>
             <label 
               htmlFor='password' 
@@ -98,7 +94,6 @@ const ResetPassword = () => {
             />
           </div>
 
-          {/* Confirm Password Input */}
           <div>
             <label 
               htmlFor='confirmPassword' 
@@ -118,7 +113,6 @@ const ResetPassword = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type='submit'
             disabled={isLoading}
@@ -127,7 +121,6 @@ const ResetPassword = () => {
             {isLoading ? 'Updating password...' : 'Set New Password'}
           </button>
 
-          {/* Back to Login Link */}
           <div className='text-center pt-4'>
             <Link 
               to='/login' 

@@ -6,103 +6,104 @@ import { login, register } from '../services/auth'
 import { DoctorContext } from '../context/DoctorContext'
 import { AdminContext } from '../context/AdminContext'
 
-const Login = () => {
-  const { token, setToken } = useContext(AppContext)
-  // const { refresh_token , setRefresh_token} = useContext(AppContext)
-  const {dToken , setDToken} = useContext(DoctorContext)
-  const { aToken , setAToken} = useContext(AdminContext)
-  const navigate = useNavigate()
-
-  const [state, setState] = useState('Sign Up')
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleForgetPasswordClick = () => {
-    navigate('/forget-password') 
-  }
-
-  const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault()
-  setIsLoading(true)
-
-  try {
-    if (state === 'Sign Up') {
-      // Register new user
-      const data = await register(name, email, password)
-
-      // if (data?.data?.success || data?.success) {
-        toast.success(data?.data?.message || 'Registration successful! Please login.')
-        setState('Login')
-        setPassword('')
-      // } else {
-      //   toast.error(data?.data?.message || 'Registration failed')
-      // }
-
-    } else {
-      
-       const data = await login(email, password)
-
-      if (data?.data?.token && data?.data?.roles) {
-        const roles = data.data.roles.map(r => r.toUpperCase())
-        
-        // DEBUG: Check the actual values
-        console.log('🟢 Roles array:', roles)
-        console.log('🟢 roles.includes("DOCTOR"):', roles.includes('DOCTOR'))
-        console.log('🟢 roles[0] === "DOCTOR":', roles[0] === 'DOCTOR')
-        console.log('🟢 typeof roles[0]:', typeof roles[0])
-        
-        localStorage.setItem('roles', JSON.stringify(roles))
-        // localStorage.setItem('token', data.data.token)
-        // setToken(data.data.token)
-
-        // If doctor, save in DoctorContext
-        if (roles.includes('DOCTOR')) {
-          console.log('🟢 Setting doctor token')
-          // setDToken(data.data.token)
-        }
-
-        // FIXED: Better role checking
-        if (roles.includes('ADMIN')) {
-          console.log('➡️ Navigating to ADMIN dashboard')
-          localStorage.setItem('aToken', data.data.token)
-          localStorage.setItem('refresh_token',data.data.refresh_token)
-          setAToken(data.data.token)
-          navigate('/admin-dashboard')
-        } else if (roles.includes('DOCTOR') || roles[0] === 'DOCTOR') {
-          console.log('➡️ Navigating to DOCTOR dashboard')
-          localStorage.setItem('dToken', data.data.token)
-          localStorage.setItem('refresh_token',data.data.refresh_token)
-          setDToken(data.data.token)
-          navigate('/doctor-dashboard')
-        } else {
-          console.log('➡️ Navigating to USER home')
-          localStorage.setItem('token', data.data.token)
-          localStorage.setItem('refresh_token',data.data.refresh_token)
-          setToken(data.data.token)
-          navigate('/')
-        }
-        
-      } else {
-        toast.error(data?.data?.message || 'Invalid credentials')
-      }
-    }
-
-  } catch (error: any) {
-    console.error('Authentication error:', error)
-    toast.error(error?.response?.data?.message || error.message || 'An error occurred')
-  } finally {
-    setIsLoading(false)
+interface LoginResponse {
+  data?: {
+    token?: string
+    refresh_token?: string
+    roles?: string[]
+    message?: string
   }
 }
 
-  // Redirect if already logged in
+interface RegisterResponse {
+  data?: {
+    message?: string
+    success?: boolean
+  }
+}
+
+type FormState = 'Sign Up' | 'Login'
+
+const Login: React.FC = () => {
+  const { token, setToken } = useContext(AppContext)
+  const { setDToken } = useContext(DoctorContext)!
+  const { setAToken } = useContext(AdminContext)!
+
+  const navigate = useNavigate()
+
+  const [state, setState] = useState<FormState>('Sign Up')
+  const [email, setEmail] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const handleForgetPasswordClick = () => navigate('/forget-password')
+
+  const onSubmitHandler = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    event.preventDefault()
+    setIsLoading(true)
+
+    try {
+      if (state === 'Sign Up') {
+        const data: RegisterResponse = await register(name, email, password)
+
+        toast.success(
+          data?.data?.message || 'Registration successful! Please login.'
+        )
+        setState('Login')
+        setPassword('')
+
+      } else {
+       
+        const data: LoginResponse = await login(email, password)
+
+        if (data?.data?.token && data?.data?.roles) {
+          const roles = data.data.roles.map(r => r.toUpperCase())
+
+          localStorage.setItem('roles', JSON.stringify(roles))
+
+          if (roles.includes('ADMIN')) {
+            localStorage.setItem('aToken', data.data.token)
+            localStorage.setItem('refresh_token', data.data.refresh_token || '')
+            setAToken(data.data.token)
+            navigate('/admin-dashboard')
+            return
+          }
+
+          if (roles.includes('DOCTOR')) {
+            localStorage.setItem('dToken', data.data.token)
+            localStorage.setItem('refresh_token', data.data.refresh_token || '')
+            setDToken(data.data.token)
+            navigate('/doctor-dashboard')
+            return
+          }
+
+          localStorage.setItem('token', data.data.token)
+          localStorage.setItem('refresh_token', data.data.refresh_token || '')
+          setToken(data.data.token)
+          navigate('/')
+          return
+        }
+
+        toast.error(data?.data?.message || 'Invalid credentials!')
+      }
+
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || 'Something went wrong!')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     if (token) {
-      const roles = JSON.parse(localStorage.getItem('roles') || '[]')
+      const roles: string[] =
+        JSON.parse(localStorage.getItem('roles') || '[]') || []
+
       if (roles.includes('ADMIN')) navigate('/admin-dashboard')
-      else if (roles.includes('DOCTOR')) navigate('/doctor/dashboard')
+      else if (roles.includes('DOCTOR')) navigate('/doctor-dashboard')
       else navigate('/')
     }
   }, [token, navigate])
@@ -161,7 +162,7 @@ const Login = () => {
         <button
           type='submit'
           disabled={isLoading}
-          className='bg-[#5F6FFF] text-white w-full py-2 rounded-md text-base hover:bg-[#4F5FEF] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed'
+          className='bg-[#5F6FFF] text-white w-full py-2 rounded-md text-base'
         >
           {isLoading
             ? 'Please wait...'
@@ -186,7 +187,7 @@ const Login = () => {
               Create a new account?{' '}
               <span
                 onClick={() => setState('Sign Up')}
-                className='text-[#5F6FFF] underline cursor-pointer font-medium hover:text-[#4F5FEF] transition-colors'
+                className='text-[#5F6FFF] underline cursor-pointer'
               >
                 Click here
               </span>
@@ -196,7 +197,7 @@ const Login = () => {
               Forget Password?{' '}
               <span
                 onClick={handleForgetPasswordClick}
-                className='text-[#5F6FFF] underline cursor-pointer font-medium hover:text-[#4F5FEF] transition-colors'
+                className='text-[#5F6FFF] underline cursor-pointer'
               >
                 Change here
               </span>

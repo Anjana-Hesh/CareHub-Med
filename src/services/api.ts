@@ -8,7 +8,7 @@ const api = axios.create({
 const PUBLIC_ENDPOINTS = ['/user/login', "/user/register", "/user/refresh"];
 
 let isRefreshing = false;
-let failedQueue: { resolve: (value: any) => void; reject: (reason?: any) => void; }[] = [];
+let failedQueue: { resolve: (value: any) => void; reject: (reason?: any) => void; }[] = [];   // 401 errors queue , it hold errors since get a refresh token
 
 const processQueue = (error: any, token: string | null = null) => {
     failedQueue.forEach(prom => {
@@ -84,7 +84,7 @@ api.interceptors.response.use((response) => {
             }
         }
 
-        return Promise.reject(error);
+        return Promise.reject(error);   // pass throught other error (without 401)
     }
 );
 

@@ -39,7 +39,7 @@ const Appointment = () => {
     if (!docId) {
         return <div className="p-8 text-center text-gray-500">Invalid doctor ID</div>;
     }
-    const { doctors, currencySymbol, backendUrl, token, getDoctorsData } = useContext(AppContext) as AppContextType;
+    const { doctors, currencySymbol,token, getDoctorsData } = useContext(AppContext) as AppContextType;
     
     const navigate = useNavigate()
 

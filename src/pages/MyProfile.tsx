@@ -4,7 +4,6 @@ import { assets } from "../assets/assets";
 import { toast } from "react-toastify";
 import { updateUserDataService } from "../services/auth";
 
-// ---------- Types ----------
 interface AddressType {
   line1: string;
   line2: string;

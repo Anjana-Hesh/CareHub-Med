@@ -23,6 +23,27 @@ const Doctor: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const specialities = [
+    { name: 'General physician', icon: '🩺' },
+    { name: 'Gynecologist', icon: '👩' },
+    { name: 'Dermatologist', icon: '✨' },
+    { name: 'Pediatricians', icon: '👶' },
+    { name: 'Neurologist', icon: '🧠' },
+    { name: 'Gastroenterologist', icon: '🫀' },
+    { name: 'Cardiologist', icon: '❤️' },
+    { name: 'Orthopedist', icon: '🦴' },
+    { name: 'Psychiatrist', icon: '🧩' },
+    { name: 'Ophthalmologist', icon: '👁️' },
+    { name: 'ENT Specialist', icon: '👂' },
+    { name: 'Dentist', icon: '😁' },
+    { name: 'Nephrologist', icon: '🩸' },
+    { name: 'Oncologist', icon: '🎗️' },
+    { name: 'Endocrinologist', icon: '🧬' },
+    { name: 'Pulmonologist', icon: '🫁' },
+    { name: 'Rheumatologist', icon: '🦠' }
+  ];
+
+
   const applyFilter = () => {
     if (speciality) {
       setFilterDoc(doctors.filter(doc => doc.speciality === speciality));
@@ -36,59 +57,104 @@ const Doctor: React.FC = () => {
   }, [doctors, speciality]);
 
   return (
-    <div>
-      <p className="text-gray-600">Browse through doctors by specialty.</p>
+    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4'>
+      
+      <div className='max-w-7xl mx-auto mb-8'>
+        <h1 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
+          Find Your Doctor
+        </h1>
+        <p className='text-gray-600'>Browse through our qualified doctors by specialty</p>
+      </div>
 
-      <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
+      <div className='max-w-7xl mx-auto flex flex-col lg:flex-row gap-8'>
+        
         <button
-          className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-[#5f6FFF] text-white' : ''}`}
           onClick={() => setShowFilter(prev => !prev)}
+          className='lg:hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg flex items-center justify-center gap-2'
         >
-          Filters
+          <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z' />
+          </svg>
+          Filter by Specialty
         </button>
 
-        <div className={`flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex' : 'hidden sm:flex'}`}>
-          {[
-            'General physician', 
-            'Gynecologist', 
-            'Dermatologist', 
-            'Pediatricians', 
-            'Neurologist', 
-            'Gastroenterologist'
-          ].map(spec => (
-            <p
-              key={spec}
-              onClick={() => speciality === spec ? navigate('/doctors') : navigate(`/doctors/${spec}`)}
-              className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality === spec ? 'bg-indigo-100 text-black font-medium' : ''}`}
-            >
-              {spec}
-            </p>
-          ))}
+        <div className={`${showFilter ? 'flex' : 'hidden'} lg:flex flex-col gap-3 lg:w-64 flex-shrink-0`}>
+          <div className='bg-white rounded-xl shadow-lg p-4'>
+            <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
+              <svg className='w-5 h-5 text-indigo-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z' />
+              </svg>
+              Specialties
+            </h3>
+            <div className='space-y-2'>
+              {specialities.map(spec => (
+                <button
+                  key={spec.name}
+                  onClick={() => speciality === spec.name ? navigate('/doctors') : navigate(`/doctors/${spec.name}`)}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 ${
+                    speciality === spec.name 
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md' 
+                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  <span className='text-xl'>{spec.icon}</span>
+                  <span className='font-medium'>{spec.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+        <div className='flex-1'>
           {filterDoc.length > 0 ? (
-            filterDoc.map((item) => (
-              <div
-                onClick={() => navigate(`/appointment/${item._id}`)}
-                className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-5px] transition-all duration-300"
-                key={item._id}
-              >
-                <img className="bg-blue-50 w-full h-48 object-cover" src={item.image} alt={item.name} />
-                <div className="p-4 text-center">
-                  <div className={`flex items-center justify-center gap-2 text-sm ${item.available ? 'text-green-500' : 'text-gray-500'}`}>
-                    <span className={`w-2 h-2 ${item.available ? 'bg-green-500' : 'bg-gray-500'} rounded-full`} />
-                    <span>{item.available ? 'Available' : 'Not Available'}</span>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+              {filterDoc.map((item) => (
+                <div
+                  key={item._id}
+                  onClick={() => navigate(`/appointment/${item._id}`)}
+                  className='group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-indigo-500'
+                >
+                  <div className='relative overflow-hidden'>
+                    <img 
+                      className='w-full h-56 object-cover transform group-hover:scale-110 transition-transform duration-300' 
+                      src={item.image} 
+                      alt={item.name} 
+                    />
+                    <div className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 ${
+                      item.available 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-gray-500 text-white'
+                    }`}>
+                      <span className='w-2 h-2 bg-white rounded-full animate-pulse' />
+                      {item.available ? 'Available' : 'Unavailable'}
+                    </div>
                   </div>
-                  <p className="text-gray-900 text-lg font-medium mt-1">{item.name}</p>
-                  <p className="text-gray-600 text-sm">{item.speciality}</p>
+
+                  <div className='p-5'>
+                    <h3 className='text-xl font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors'>
+                      {item.name}
+                    </h3>
+                    <p className='text-gray-600 text-sm mb-3'>{item.speciality}</p>
+                    
+                    <button className='w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300'>
+                      Book Appointment
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           ) : (
-            <p className="text-gray-500 col-span-full">
-              {speciality ? `No doctors found for: ${speciality}` : 'No doctors available.'}
-            </p>
+            <div className='bg-white rounded-xl shadow-lg p-12 text-center'>
+              <svg className='w-24 h-24 text-gray-300 mx-auto mb-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
+              </svg>
+              <h3 className='text-2xl font-bold text-gray-800 mb-2'>No Doctors Found</h3>
+              <p className='text-gray-600'>
+                {speciality 
+                  ? `No doctors available for ${speciality}` 
+                  : 'No doctors available at the moment'}
+              </p>
+            </div>
           )}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
@@ -35,7 +35,11 @@ interface AppContextType {
 
 const Appointment = () => {
     const { docId } = useParams<{ docId: string }>();
-    const { doctors, currencySymbol, backendUrl, token, getDoctorsData } = useContext(AppContext) as AppContextType;
+
+    if (!docId) {
+        return <div className="p-8 text-center text-gray-500">Invalid doctor ID</div>;
+    }
+    const { doctors, currencySymbol,token, getDoctorsData } = useContext(AppContext) as AppContextType;
     
     const navigate = useNavigate()
 

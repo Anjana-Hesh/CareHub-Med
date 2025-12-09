@@ -1,6 +1,5 @@
 type ImageImport = string;
 
-// 👉 All image imports
 import appointment_img from './appointment_img.png';
 import header_img from './header_img.png';
 import group_profiles from './group_profiles.png';
@@ -8,7 +7,7 @@ import profile_pic from './profile_pic.png';
 import contact_image from './contact_image.png';
 import about_image from './about_image.png';
 import logo from './logo.png';
-import dropdown_icon from './dropdown_icon.svg';
+import dropdown_icon from './dropdown_icon.svg'; 
 import menu_icon from './menu_icon.svg';
 import cross_icon from './cross_icon.png';
 import chats_icon from './chats_icon.svg';
@@ -27,8 +26,8 @@ import doc6 from './Nisal Doc.png';
 import doc7 from './Dilmi Doc.png';
 import doc8 from './Chathura Doc.png';
 import doc9 from './Prabhadee Doc.png';
-import doc10 from './doc10.png';
-import doc11 from './doc11.png';
+import doc10 from './docDinan.png';
+import doc11 from './DocOshi.png';
 import doc12 from './doc12.png';
 import doc13 from './doc13.png';
 import doc14 from './doc14.png';
@@ -40,7 +39,6 @@ import Gynecologist from './Gynecologist.svg';
 import Neurologist from './Neurologist.svg';
 import Pediatricians from './Pediatricians.svg';
 
-// 🌟 Assets object
 export const assets: Record<string, ImageImport> = {
   appointment_img,
   header_img,
@@ -61,7 +59,6 @@ export const assets: Record<string, ImageImport> = {
   razorpay_logo
 };
 
-// 🩺 Specialities
 export interface Speciality {
   speciality: string;
   image: ImageImport;
@@ -76,7 +73,6 @@ export const specialityData: Speciality[] = [
   { speciality: 'Gastroenterologist', image: Gastroenterologist }
 ];
 
-// 👩‍⚕️ Doctors
 export interface Doctor {
   _id: string;
   name: string;
@@ -205,12 +201,12 @@ export const doctors: Doctor[] = [
     },
     {
         _id: 'doc11',
-        name: 'Dr. Charuka Hansaja',
+        name: 'Dr. Oshani Madumali',
         image: doc11,
         speciality: 'Neurologist',
         degree: 'MBBS',
         experience: '4 Years',
-        about: 'Dr. Charuka is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
+        about: 'Dr. Oshani is a skilled **Neurologist** who diagnoses and treats disorders of the brain, spinal cord, nerves, and muscles, such as stroke, epilepsy, and migraines.',
         fees: 4000, // LKR 4,000
         address: { line1: 'Dont know pradesh, ', line2: 'Galle. ' }
     },
@@ -249,13 +245,13 @@ export const doctors: Doctor[] = [
     },
     {
         _id: 'doc15',
-        name: 'Dr. Vishwa Sudesh',
+        name: 'Dr. Charuka Hansaja',
         image: doc15,
         speciality: 'Dermatologist',
         degree: 'MBBS',
         experience: '1 Years',
-        about: 'Dr. Vishwa is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
+        about: 'Dr. Charu is a certified **Dermatologist**, specializing in diagnosing and treating conditions of the skin, hair, and nails, offering both cosmetic and medical treatments.',
         fees: 2500, // LKR 2,500
-        address: { line1: 'Ihala Omaththa,  Mullakanda, ', line2: 'Elpitiya. ' }
+        address: { line1: 'Yakkalamulla, ', line2: 'Galle. ' }
     },
 ]

@@ -1,52 +1,3 @@
-// import axios, { AxiosError } from "axios";
-// import { refreshTokens } from "./auth";
-
-// const api = axios.create({
-//     baseURL: "http://localhost:5000/api/v1"
-// })
-
-// const PUBLIC_ENDPOINTS = ['/user/login' , "/user/register"]
-
-// api.interceptors.response.use((response)=>{
-//     return response
-    
-//     },
-//     async (error: AxiosError) => {
-        
-//             const originalRequest:any = error.config
-
-//             if (error.response?.status === 401 && !PUBLIC_ENDPOINTS.some((url) => originalRequest.url?.includes(url)) && originalRequest._retry) {
-//                 originalRequest._retry = true
-//                 // refresh token already called
-
-//             try{
-//                 const refreshToken = localStorage.getItem("refreshToken")
-
-//                 if (!refreshToken) {
-//                     throw new Error ("No refresh token available")
-//                 }
-
-//                 const data = await refreshTokens(refreshToken)
-//                 localStorage.setItem("token", data.accessToken)
-
-//                 originalRequest.headers = data.accessToken
-
-//                 return axios(originalRequest)
-//             } catch (refreshError) {
-//                 localStorage.removeItem("refreshToken")
-//                 localStorage.removeItem("accessToken")
-//                 window.location.href = "/login"
-//                 console.error(refreshError)
-
-//                 return Promise.reject(refreshError)
-//             }
-//         } 
-//         return Promise.reject(error)
-//     }
-// )
-
-// export default api
-
 import axios, { AxiosError } from "axios";
 import { refreshTokens } from "./auth";
 
@@ -57,7 +8,7 @@ const api = axios.create({
 const PUBLIC_ENDPOINTS = ['/user/login', "/user/register", "/user/refresh"];
 
 let isRefreshing = false;
-let failedQueue: { resolve: (value: any) => void; reject: (reason?: any) => void; }[] = [];
+let failedQueue: { resolve: (value: any) => void; reject: (reason?: any) => void; }[] = [];   // 401 errors queue , it hold errors since get a refresh token
 
 const processQueue = (error: any, token: string | null = null) => {
     failedQueue.forEach(prom => {
@@ -133,7 +84,7 @@ api.interceptors.response.use((response) => {
             }
         }
 
-        return Promise.reject(error);
+        return Promise.reject(error);   // pass throught other error (without 401)
     }
 );
 

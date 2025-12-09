@@ -22,7 +22,6 @@ const ForgetPassword = () => {
     try {
       const response = await sendPasswordResetEmail(email)
       
-      // Placeholder successful response logic
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       if (response.success) {

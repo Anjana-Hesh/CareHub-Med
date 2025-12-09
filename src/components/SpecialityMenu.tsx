@@ -1,4 +1,3 @@
-
 import { specialityData } from '../assets/assets'
 import { Link } from 'react-router-dom'
 

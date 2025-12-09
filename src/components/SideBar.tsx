@@ -1,14 +1,13 @@
 import { useContext } from 'react'
 import { AdminContext } from '../context/AdminContext'
 import { NavLink } from 'react-router-dom'
-// import { assets } from '../assets/assets'
 import { DoctorContext } from '../context/DoctorContext'
 import { assets } from '../assets/assetsAdmin'
 
 const Sidebar = () => {
 
-    const {aToken} = useContext(AdminContext)
-    const {dToken} = useContext(DoctorContext)
+    const aToken = useContext(AdminContext)?.aToken
+    const dToken = useContext(DoctorContext)?.dToken
 
 
     return (

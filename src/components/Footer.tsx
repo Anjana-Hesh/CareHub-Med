@@ -1,4 +1,3 @@
-import React from 'react'
 import { assets } from '../assets/assets'
 
 const Footer = () => {
@@ -37,10 +36,9 @@ const Footer = () => {
         </div>
         <div>
 
-            {/*  ---------- Copyright text --------- */}
             <hr />
             <p className='py-5 text-md text-center'>Copyright © 2025 - All Right Reserved.</p>
-            <p className='text-sm text-center'>Created by: Anjana Heshan</p>
+            <p className='text-sm text-center'>Created by: Anjana Heshan (Doc of care hub medical)</p>
         </div>
     </div>
   )

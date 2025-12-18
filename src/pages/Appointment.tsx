@@ -49,6 +49,7 @@ const Appointment = () => {
     const [docSlots, setDocSlots] = useState<Slot[][]>([]);
     const [slotIndex, setSlotIndex] = useState(0);
     const [slotTime, setSlotTime] = useState('');
+    const [isBooking, setIsBooking] = useState(false);
 
     const fetchDocInfo = useCallback(() => {
         const foundDoc = doctors.find(doc => doc._id === docId);
@@ -143,7 +144,12 @@ const Appointment = () => {
             return navigate('/login')
         }
 
+        if (isBooking) return;   // prevent double click
+
         try {
+
+            setIsBooking(true);  //  disable button
+
             const date = docSlots[slotIndex][0]?.datetime;
             if (!date) {
                 toast.error("No date available");
@@ -171,6 +177,8 @@ const Appointment = () => {
             const message = error.response?.data?.message || error.message || 'Something went wrong';
             console.error(error)
             toast.error(message)
+        } finally {
+            setIsBooking(false); //  re-enable (if still on page)
         }
     }
 
@@ -264,15 +272,21 @@ const Appointment = () => {
                     )}
                 </div>
                 
-                <button 
+                <button
                     onClick={bookAppointment}
-                    className={`text-white text-sm font-semibold px-14 py-3 rounded-full my-6 transition-opacity duration-300
-                        ${slotTime 
-                            ? 'bg-[#5f6FFF] hover:bg-indigo-700' 
-                            : 'bg-gray-400 cursor-not-allowed opacity-80'
-                        }`}
+                    disabled={!slotTime || isBooking}
+                    className={`text-white text-sm font-semibold px-14 py-3 rounded-full my-6
+                        transition-all duration-300
+                        ${
+                            isBooking
+                                ? 'bg-gray-400 cursor-not-allowed'
+                                : slotTime
+                                ? 'bg-[#5f6FFF] hover:bg-indigo-700'
+                                : 'bg-gray-400 cursor-not-allowed opacity-80'
+                        }
+                    `}
                 >
-                    Book an appointment
+                    {isBooking ? '⏳ Booking...' : 'Book an appointment'}
                 </button>
             </div>
 

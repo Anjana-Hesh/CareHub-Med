@@ -50,7 +50,7 @@ const App = () => {
       <div className='bg-[#F8F9FD]'>
         <ToastContainer />
         <Navbar />
-        <div className='flex items-start'>
+        <div className='flex items-start pt-[70px]'>
           <Sidebar />
           <Routes>
             {/* Admin Routes */}
@@ -84,20 +84,22 @@ const App = () => {
     <div className='mx-4 sm:mx-[10%]'>
       <ToastContainer />
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/doctors' element={<Doctor />} />
-        <Route path='/doctors/:speciality' element={<Doctor />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/forget-password' element={<ForgetPassword />} />
-        <Route path='/reset-password/:token' element={<ResetPassword />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/my-appointments' element={<MyAppointment />} />
-        <Route path='/my-profile' element={<MyProfile />} />
-        <Route path='/appointment/:docId' element={<Appointment />} />
-      </Routes>
-      <Footer />
+      <div className='pt-[150px]'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/doctors' element={<Doctor />} />
+          <Route path='/doctors/:speciality' element={<Doctor />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/forget-password' element={<ForgetPassword />} />
+          <Route path='/reset-password/:token' element={<ResetPassword />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/my-appointments' element={<MyAppointment />} />
+          <Route path='/my-profile' element={<MyProfile />} />
+          <Route path='/appointment/:docId' element={<Appointment />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   )
 }

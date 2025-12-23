@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
@@ -39,7 +39,7 @@ const Appointment = () => {
     if (!docId) {
         return <div className="p-8 text-center text-gray-500">Invalid doctor ID</div>;
     }
-    const { doctors, currencySymbol,token, getDoctorsData } = useContext(AppContext) as AppContextType;
+    const { doctors, currencySymbol, token, getDoctorsData } = useContext(AppContext) as AppContextType;
     
     const navigate = useNavigate()
 
@@ -49,13 +49,16 @@ const Appointment = () => {
     const [docSlots, setDocSlots] = useState<Slot[][]>([]);
     const [slotIndex, setSlotIndex] = useState(0);
     const [slotTime, setSlotTime] = useState('');
+    const [isBooking, setIsBooking] = useState(false);
 
-    const fetchDocInfo = useCallback(() => {
+    // Fetch doctor info - runs only when doctors array or docId changes
+    useEffect(() => {
         const foundDoc = doctors.find(doc => doc._id === docId);
         setDocInfo(foundDoc || null);
     }, [doctors, docId]);
 
-    const getAvailableSlots = useCallback(() => {
+    // Generate available slots - runs only when docInfo changes
+    useEffect(() => {
         if (!docInfo) return;
 
         const today = new Date();
@@ -143,7 +146,12 @@ const Appointment = () => {
             return navigate('/login')
         }
 
+        if (isBooking) return;   // prevent double click
+
         try {
+
+            setIsBooking(true);  //  disable button
+
             const date = docSlots[slotIndex][0]?.datetime;
             if (!date) {
                 toast.error("No date available");
@@ -156,7 +164,6 @@ const Appointment = () => {
 
             const slotDate = `${day}-${month}-${year}`
 
-            // const { data } = await axios.post(`${backendUrl}/api/v1/user/book-appointment`, { docId, slotDate, slotTime }, { headers: { token } })
             const data = await bookAppointmentService(docId, slotDate, slotTime)
 
             if (data.success) {
@@ -171,16 +178,10 @@ const Appointment = () => {
             const message = error.response?.data?.message || error.message || 'Something went wrong';
             console.error(error)
             toast.error(message)
+        } finally {
+            setIsBooking(false); //  re-enable (if still on page)
         }
     }
-
-    useEffect(() => {
-        fetchDocInfo();
-    }, [fetchDocInfo]);
-
-    useEffect(() => {
-        getAvailableSlots();
-    }, [getAvailableSlots]);
 
     if (!docInfo) {
         return <div className="p-8 text-center text-gray-500">Loading doctor details...</div>;
@@ -264,15 +265,21 @@ const Appointment = () => {
                     )}
                 </div>
                 
-                <button 
+                <button
                     onClick={bookAppointment}
-                    className={`text-white text-sm font-semibold px-14 py-3 rounded-full my-6 transition-opacity duration-300
-                        ${slotTime 
-                            ? 'bg-[#5f6FFF] hover:bg-indigo-700' 
-                            : 'bg-gray-400 cursor-not-allowed opacity-80'
-                        }`}
+                    disabled={!slotTime || isBooking}
+                    className={`text-white text-sm font-semibold px-14 py-3 rounded-full my-6
+                        transition-all duration-300
+                        ${
+                            isBooking
+                                ? 'bg-gray-400 cursor-not-allowed'
+                                : slotTime
+                                ? 'bg-[#5f6FFF] hover:bg-indigo-700'
+                                : 'bg-gray-400 cursor-not-allowed opacity-80'
+                        }
+                    `}
                 >
-                    Book an appointment
+                    {isBooking ? '⏳ Booking...' : 'Book an appointment'}
                 </button>
             </div>
 

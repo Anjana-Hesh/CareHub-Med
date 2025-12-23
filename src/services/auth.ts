@@ -117,3 +117,7 @@ export const resetPassword = async (token: string, newPassword: string) => {
     return resp.data;
 };
 
+export const googleLogin = async (credential: string) => {
+    const resp = await api.post("/user/google-login", { credential })
+    return resp.data
+}

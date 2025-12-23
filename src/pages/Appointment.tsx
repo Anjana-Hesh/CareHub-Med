@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
@@ -39,7 +39,7 @@ const Appointment = () => {
     if (!docId) {
         return <div className="p-8 text-center text-gray-500">Invalid doctor ID</div>;
     }
-    const { doctors, currencySymbol,token, getDoctorsData } = useContext(AppContext) as AppContextType;
+    const { doctors, currencySymbol, token, getDoctorsData } = useContext(AppContext) as AppContextType;
     
     const navigate = useNavigate()
 
@@ -51,12 +51,14 @@ const Appointment = () => {
     const [slotTime, setSlotTime] = useState('');
     const [isBooking, setIsBooking] = useState(false);
 
-    const fetchDocInfo = useCallback(() => {
+    // Fetch doctor info - runs only when doctors array or docId changes
+    useEffect(() => {
         const foundDoc = doctors.find(doc => doc._id === docId);
         setDocInfo(foundDoc || null);
     }, [doctors, docId]);
 
-    const getAvailableSlots = useCallback(() => {
+    // Generate available slots - runs only when docInfo changes
+    useEffect(() => {
         if (!docInfo) return;
 
         const today = new Date();
@@ -162,7 +164,6 @@ const Appointment = () => {
 
             const slotDate = `${day}-${month}-${year}`
 
-            // const { data } = await axios.post(`${backendUrl}/api/v1/user/book-appointment`, { docId, slotDate, slotTime }, { headers: { token } })
             const data = await bookAppointmentService(docId, slotDate, slotTime)
 
             if (data.success) {
@@ -181,14 +182,6 @@ const Appointment = () => {
             setIsBooking(false); //  re-enable (if still on page)
         }
     }
-
-    useEffect(() => {
-        fetchDocInfo();
-    }, [fetchDocInfo]);
-
-    useEffect(() => {
-        getAvailableSlots();
-    }, [getAvailableSlots]);
 
     if (!docInfo) {
         return <div className="p-8 text-center text-gray-500">Loading doctor details...</div>;

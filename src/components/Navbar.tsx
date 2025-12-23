@@ -4,9 +4,11 @@ import { assets } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
 import { AdminContext } from '../context/AdminContext';
 import { DoctorContext } from '../context/DoctorContext';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { isDarkMode, toggleTheme } = useTheme();
   const { token, setToken, userData } = useContext(AppContext);
   const { aToken, setAToken } = useContext(AdminContext)!;
   const { dToken, setDToken } = useContext(DoctorContext)!;
@@ -29,7 +31,7 @@ const Navbar = () => {
   else if (token) role = 'USER';
 
   return (
-    <div className='flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 border-b bg-white shadow-sm'>
+    <div className='flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 border-b bg-white shadow-sm fixed top-0 left-0 right-0 w-full z-50'>
       <img
         className='w-36 sm:w-40 lg:w-44 cursor-pointer'
         src={assets.logo}
@@ -47,6 +49,15 @@ const Navbar = () => {
       </ul>
 
       <div className='flex items-center gap-2 sm:gap-4'>
+
+        <button 
+          onClick={toggleTheme}
+          className='p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all text-xl'
+          title="Toggle Theme"
+        >
+          {isDarkMode ? '☀️' : '🌙'}
+        </button>
+
         {role ? (
           <div className='relative flex items-center gap-2'>
             {role === 'USER' && userData?.image && (
@@ -116,7 +127,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${showMenu ? 'translate-x-0' : 'translate-x-full'} fixed top-0 right-0 w-full h-full z-30 bg-white transition-transform duration-300 ease-in-out md:hidden`}>
+      <div className={`${showMenu ? 'translate-x-0' : 'translate-x-full'} fixed top-0 right-0 w-full h-full z-[60] bg-white transition-transform duration-300 ease-in-out md:hidden`}>
         <div className='flex items-center justify-between px-5 py-6 border-b'>
           <img src={assets.logo} alt='Logo' className='w-36' />
           <img

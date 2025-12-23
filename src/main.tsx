@@ -7,17 +7,20 @@ import AppContextProvider from './context/AppContext.tsx'
 import DoctorContextProvider from './context/DoctorContext.tsx'
 import AdminContextProvider from './context/AdminContext.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import { ThemeProvider } from './context/ThemeContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <DoctorContextProvider>
-        <AdminContextProvider>
-          <AppContextProvider>
-            <App />
-          </AppContextProvider>
-        </AdminContextProvider>
-      </DoctorContextProvider>
+    <ThemeProvider>
+        <DoctorContextProvider>
+          <AdminContextProvider>
+            <AppContextProvider>
+              <App />
+            </AppContextProvider>
+          </AdminContextProvider>
+        </DoctorContextProvider>
+      </ThemeProvider>
     </GoogleOAuthProvider>
   </BrowserRouter>,
 )

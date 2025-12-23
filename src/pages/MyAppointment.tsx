@@ -36,6 +36,7 @@ const MyAppointment: React.FC = () => {
   const { token, getDoctorsData } = useContext(AppContext);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
   const formatDate = (dateStr: string): string => {
     if (!dateStr) return '-';
@@ -63,8 +64,11 @@ const MyAppointment: React.FC = () => {
   };
 
   const handleCancelAppointment = async (id: string): Promise<void> => {
+    if (cancellingId) return; // Prevent multiple clicks
+    
     if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
     
+    setCancellingId(id);
     try {
       const data = await cancelAppointmentService(id);
       
@@ -77,6 +81,8 @@ const MyAppointment: React.FC = () => {
       }
     } catch (error: any) {
       toast.error(error.message || 'Something went wrong');
+    } finally {
+      setCancellingId(null);
     }
   };
 
@@ -89,6 +95,7 @@ const MyAppointment: React.FC = () => {
   const AppointmentCard: React.FC<{ appointment: Appointment }> = ({ appointment }) => {
     const { docData, slotDate, slotTime, cancelled, isCompleted, _id } = appointment;
     const isActive = !cancelled && !isCompleted;
+    const isCancelling = cancellingId === _id;
 
     return (
       <div className="flex flex-col sm:flex-row gap-4 p-4 border-b hover:bg-gray-50 transition-colors">
@@ -132,10 +139,15 @@ const MyAppointment: React.FC = () => {
                 Pay Online
               </button>
               <button 
-                className="px-4 py-2 text-sm border border-red-500 text-red-600 rounded hover:bg-red-50 transition-colors"
+                className={`px-4 py-2 text-sm border rounded transition-colors ${
+                  isCancelling
+                    ? 'border-gray-300 text-gray-400 bg-gray-50 cursor-not-allowed'
+                    : 'border-red-500 text-red-600 hover:bg-red-50'
+                }`}
                 onClick={() => handleCancelAppointment(_id)}
+                disabled={isCancelling}
               >
-                Cancel Appointment
+                {isCancelling ? 'Cancelling...' : 'Cancel Appointment'}
               </button>
             </>
           )}

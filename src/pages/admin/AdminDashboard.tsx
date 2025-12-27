@@ -3,7 +3,8 @@ import { AdminContext } from '../../context/AdminContext';
 import { AppContext } from '../../context/AppContext';
 import { assets } from '../../assets/assetsAdmin';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable'; 
+import 'jspdf-autotable';
+import Swal from 'sweetalert2';
 
 interface DoctorData {
   _id: string;
@@ -82,7 +83,21 @@ const Dashboard: React.FC = () => {
     return data && typeof data === 'object' && 'doctors' in data && 'appointments' in data;
   };
 
-  const handleCancelAppointment = (appointmentId: string): void => {
+  const handleCancelAppointment = async(appointmentId: string): Promise <void> => {
+    const result = await Swal.fire({
+    title: 'Cancel Appointment?',
+    text: 'This appointment will be cancelled permanently.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#5f6FFF',
+    confirmButtonText: 'Yes, cancel it',
+    cancelButtonText: 'No',
+    reverseButtons: true,
+  });
+
+  if (!result.isConfirmed) return;
+
     cancelAppointment(appointmentId);
   };
   

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import { cancelAppointmentService, getUserAppointmentsService } from '../services/auth';
+import Swal from 'sweetalert2';
 
 interface Address {
   line1: string;
@@ -66,8 +67,20 @@ const MyAppointment: React.FC = () => {
   const handleCancelAppointment = async (id: string): Promise<void> => {
     if (cancellingId) return; // Prevent multiple clicks
     
-    if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
+    // if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
+      const result = await Swal.fire({
+        title: 'Cancel Appointment?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, cancel it',
+        cancelButtonText: 'No, keep it',
+      });
     
+      if (!result.isConfirmed) return;
+
     setCancellingId(id);
     try {
       const data = await cancelAppointmentService(id);
@@ -134,7 +147,13 @@ const MyAppointment: React.FC = () => {
             <>
               <button 
                 className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                onClick={() => toast.info('Payment feature coming soon!')}
+                onClick={() =>
+                  Swal.fire({
+                    icon: 'info',
+                    title: 'Coming Soon',
+                    text: 'Online payment feature will be available soon!',
+                  })
+                }
               >
                 Pay Online
               </button>

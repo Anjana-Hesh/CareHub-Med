@@ -7,6 +7,7 @@ import {
   getDashDataService,
   getProfileDataService,
 } from "../services/doctor";
+import Swal from 'sweetalert2';
 
 export type AppointmentType = {
   _id: string;
@@ -97,6 +98,21 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cancelAppointment = async (appointmentId: string) => {
+
+    const result = await Swal.fire({
+        title: 'Cancel Appointment?',
+        text: 'This appointment will be cancelled permanently.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#5f6FFF',
+        confirmButtonText: 'Yes, cancel it',
+        cancelButtonText: 'No',
+        reverseButtons: true,
+      });
+    
+      if (!result.isConfirmed) return;
+
     try {
       const data = await doctorCancelAppintmentsService(appointmentId);
 

@@ -3,6 +3,7 @@ import { DoctorContext } from '../../context/DoctorContext'
 import { AppContext } from '../../context/AppContext'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import Swal from 'sweetalert2';
 
 interface UserData {
   name: string
@@ -25,6 +26,15 @@ interface DashData {
   patients: number
   latestAppointments: Appointment[]
 }
+
+// Date eka ada ho pass date ekakda kiyala check kirima
+const isDateReached = (slotDate: string): boolean => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Ada dawase welawa zero karanna
+  
+  const appointmentDate = new Date(slotDate);
+  return appointmentDate <= today;
+};
 
 const DoctorDashboard = () => {
   const doctorContext = useContext(DoctorContext)
@@ -324,7 +334,20 @@ const DoctorDashboard = () => {
                         {!item.cancelled && !item.isCompleted && (
                           <div className="flex gap-2">
                             <button
-                              onClick={() => completeAppointment(item._id)}
+                              onClick={() => {
+                                if (!isDateReached(item.slotDate)) {
+                                  // Date eka thama awith nathnam alert eka danna
+                                  Swal.fire({
+                                    icon: 'info',
+                                    title: 'Wait a moment!',
+                                    text: `The appointment date (${slotDateFormat(item.slotDate)}) has not arrived yet. You can only mark it as complete on the scheduled day.`,
+                                    confirmButtonColor: '#5f6FFF',
+                                  });
+                                } else {
+                                  // Date eka hari nam pamanak complete function eka run karanna
+                                  completeAppointment(item._id);
+                                }
+                              }}
                               className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:shadow-md transition-shadow text-sm"
                             >
                               Mark Complete

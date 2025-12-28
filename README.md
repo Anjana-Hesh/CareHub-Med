@@ -306,7 +306,7 @@ For support, email support@carehubmed.com or join our Slack channel.
 
 <div align="center">
 
-![CareHub Med Logo](./public/logo.png)
+![CareHub Med Logo](/frontend/src/assets/logo.png)
 
 ### A Modern Healthcare Appointment Management System
 
@@ -641,17 +641,6 @@ CareHub-Med/
 │   │   ├── appointment.types.ts
 │   │   └── doctor.types.ts
 │   │
-│   ├── 📁 utils/                   # Utility functions
-│   │   ├── auth.ts                 # Token management
-│   │   ├── pdf.ts                  # PDF generation
-│   │   ├── theme.ts                # Theme utilities
-│   │   └── helpers.ts              # Helper functions
-│   │
-│   ├── 📁 hooks/                   # Custom React hooks
-│   │   ├── useAuth.ts
-│   │   ├── useTheme.ts
-│   │   └── useAppointments.ts
-│   │
 │   ├── App.tsx                     # Root component
 │   ├── main.tsx                    # Entry point
 │   └── index.css                   # Global styles
@@ -670,170 +659,6 @@ CareHub-Med/
 ```
 
 ---
-
-## 🔑 Key Implementations
-
-### 🔐 Token Authentication with Auto-Refresh
-
-```typescript
-// services/api.ts
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
-});
-
-// Request interceptor to add token
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Response interceptor for token refresh
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        const { data } = await axios.post('/auth/refresh', { refreshToken });
-        
-        localStorage.setItem('accessToken', data.accessToken);
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        
-        return api(originalRequest);
-      } catch (refreshError) {
-        // Redirect to login
-        window.location.href = '/login';
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
-  }
-);
-
-export default api;
-```
-
-### 📧 Real-time Email Notifications
-
-The backend integration handles:
-- Appointment booking confirmations
-- Cancellation notifications
-- Completion confirmations
-- Doctor notification for new appointments
-- Custom email templates with appointment details
-
-### 📄 PDF Report Generation
-
-```typescript
-// utils/pdf.ts
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-
-export const generateAppointmentReport = (appointments: Appointment[]) => {
-  const doc = new jsPDF();
-  
-  // Add title
-  doc.setFontSize(18);
-  doc.text('Appointment Report', 14, 22);
-  
-  // Add table
-  doc.autoTable({
-    head: [['Date', 'Patient', 'Doctor', 'Status']],
-    body: appointments.map(apt => [
-      apt.date,
-      apt.patientName,
-      apt.doctorName,
-      apt.status
-    ]),
-    startY: 30,
-  });
-  
-  // Download
-  doc.save('appointment-report.pdf');
-};
-```
-
-### 🌓 Theme Management
-
-```typescript
-// contexts/ThemeContext.tsx
-import { createContext, useState, useEffect } from 'react';
-
-export const ThemeContext = createContext({
-  theme: 'light',
-  toggleTheme: () => {},
-});
-
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    return localStorage.getItem('theme') || 'light';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
-```
-
-### 🍬 Alert System
-
-```typescript
-// Using Sweet Alert 2
-import Swal from 'sweetalert2';
-
-export const confirmCancellation = async () => {
-  const result = await Swal.fire({
-    title: 'Cancel Appointment?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, cancel it!'
-  });
-  
-  return result.isConfirmed;
-};
-
-// Using React Toastify
-import { toast } from 'react-toastify';
-
-export const showSuccessToast = (message: string) => {
-  toast.success(message, {
-    position: "top-right",
-    autoClose: 3000,
-  });
-};
-```
-
----
-
-## 🛠️ Available Scripts
 
 ```bash
 # Development
@@ -988,23 +813,6 @@ We welcome contributions from the community! Here's how you can help:
 - 📖 Update documentation
 - 🐛 Report bugs via [Issues](https://github.com/Anjana-Hesh/CareHub-Med/issues)
 - 💡 Suggest features via [Discussions](https://github.com/Anjana-Hesh/CareHub-Med/discussions)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 Anjana Heshan
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
-```
-
 ---
 
 ## 👨‍💻 Author & Contact
@@ -1034,20 +842,6 @@ Special thanks to:
 - 💙 **TypeScript Team** - For type safety and better DX
 - 🌟 **Open Source Community** - For inspiration and support
 - 👥 **All Contributors** - Who helped make this project better
-
----
-
-## 📞 Support & Feedback
-
-Need help or have suggestions?
-
-- 📧 **Email:** support@carehubmed.com
-- 💬 **Discord:** [Join our server](https://discord.gg/your-server)
-- 🐛 **Issues:** [GitHub Issues](https://github.com/Anjana-Hesh/CareHub-Med/issues)
-- 💡 **Feature Requests:** [GitHub Discussions](https://github.com/Anjana-Hesh/CareHub-Med/discussions)
-- 📖 **Documentation:** [Read the Docs](https://your-docs-link.com)
-
----
 
 ## 🗺️ Roadmap
 

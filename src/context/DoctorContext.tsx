@@ -82,8 +82,29 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const isDateReached = (appointmentDate: string): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to compare only dates
+  
+    const targetDate = new Date(appointmentDate);
+    return targetDate <= today;
+  };
+
   const completeAppointment = async (appointmentId: string) => {
     try {
+
+      const appointment = appointments.find(app => app._id === appointmentId);
+  
+  if (appointment && !isDateReached(appointment.date)) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Wait a moment!',
+      text: 'The appointment date has not arrived yet. You can only complete it on or after the scheduled date.',
+      confirmButtonColor: '#5f6FFF',
+    });
+    return;
+  }
+      
       const data = await doctorCompleteAppintmentsService(appointmentId);
 
       if (data.success) {
@@ -98,6 +119,18 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cancelAppointment = async (appointmentId: string) => {
+
+    const appointment = appointments.find(app => app._id === appointmentId);
+
+    if (appointment && !isDateReached(appointment.date)) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Cannot Cancel Yet',
+        text: 'The appointment date has not arrived yet. You can only manage it on or after the scheduled date.',
+        confirmButtonColor: '#5f6FFF',
+      });
+      return;
+    }
 
     const result = await Swal.fire({
         title: 'Cancel Appointment?',

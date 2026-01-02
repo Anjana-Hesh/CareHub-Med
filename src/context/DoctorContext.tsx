@@ -109,6 +109,7 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
 
       if (data.success) {
         toast.success(data.message);
+        await getAppointments()
         await getDashData();
       } else {
         toast.error(data.message);

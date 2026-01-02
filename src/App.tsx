@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { lazy, useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,29 +11,46 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/SideBar'
 import Footer from './components/Footer'
 
-import Login from './pages/Login'
-import ForgetPassword from './pages/ForgetPassword'
+// import Login from './pages/Login'
+const Login = lazy (() => import('./pages/Login')); 
+// import ForgetPassword from './pages/ForgetPassword'
+const ForgetPassword = lazy (() => import('./pages/ForgetPassword') );
 
 // Admin pages
-import Dashboard from './pages/admin/AdminDashboard'
-import AllApointment from './pages/admin/AllAppointments'
-import AddDoctor from './pages/admin/AddDoctor'
-import DoctorsList from './pages/admin/DoctorsList'
+// import Dashboard from './pages/admin/AdminDashboard'
+const Dashboard = lazy (() => import('./pages/admin/AdminDashboard') );
+// import AllApointment from './pages/admin/AllAppointments'
+const AllApointment = lazy (() => import('./pages/admin/AllAppointments') );
+// import AddDoctor from './pages/admin/AddDoctor'
+const AddDoctor = lazy (() => import('./pages/admin/AddDoctor') );
+// import DoctorsList from './pages/admin/DoctorsList'
+const DoctorsList = lazy (() => import('./pages/admin/DoctorsList') );
 
 // Doctor pages
-import DoctorDashboard from './pages/doctor/Dashboard'
-import DoctorApointment from './pages/doctor/DoctorAppointment'
-import DoctorProfile from './pages/doctor/DoctorProfile'
+// import DoctorDashboard from './pages/doctor/Dashboard'
+const DoctorDashboard = lazy (() => import('./pages/doctor/Dashboard') );
+// import DoctorApointment from './pages/doctor/DoctorAppointment'
+const DoctorApointment = lazy (() => import('./pages/doctor/DoctorAppointment') );
+// import DoctorProfile from './pages/doctor/DoctorProfile'
+const DoctorProfile = lazy (() => import('./pages/doctor/DoctorProfile') );
 
 // User pages
-import Home from './pages/Home'
-import Doctor from './pages/Doctor'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import MyProfile from './pages/MyProfile'
-import MyAppointment from './pages/MyAppointment'
-import Appointment from './pages/Appointment'
-import ResetPassword from './pages/ResetPassword'
+// import Home from './pages/Home'
+const Home = lazy (() => import('./pages/Home') );
+// import Doctor from './pages/Doctor'
+const Doctor = lazy (() => import('./pages/Doctor') );
+// import About from './pages/About'
+const About = lazy (() => import('./pages/About') );
+// import Contact from './pages/Contact'
+const Contact = lazy (() => import('./pages/Contact'));
+// import MyProfile from './pages/MyProfile'
+const MyProfile = lazy (() => import('./pages/MyProfile'));
+// import MyAppointment from './pages/MyAppointment'
+const MyAppointment = lazy (() => import('./pages/MyAppointment'));
+// import Appointment from './pages/Appointment'
+const Appointment = lazy (() => import('./pages/Appointment'));
+// import ResetPassword from './pages/ResetPassword'
+const ResetPassword = lazy (() => import('./pages/ResetPassword'));
 
 const App = () => {
   const aToken = useContext(AdminContext)?.aToken

@@ -40,7 +40,7 @@ const DoctorAppointment = () => {
     if (dToken) {
       getAppointments()
     }
-  }, [dToken, getAppointments])
+  }, [dToken])
 
   // Calculate pagination
   const reversedAppointments = [...actualAppointments].reverse()

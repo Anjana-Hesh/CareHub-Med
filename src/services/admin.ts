@@ -1,6 +1,5 @@
 import api from "./api";
 
-
 export const getAllDoctorsService = async () => {
     const aToken = localStorage.getItem("aToken");
 

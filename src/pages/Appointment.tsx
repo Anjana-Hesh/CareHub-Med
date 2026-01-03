@@ -39,13 +39,13 @@ const Appointment = () => {
     if (!docId) {
         return <div className="p-8 text-center text-gray-500">Invalid doctor ID</div>;
     }
-    const { doctors, currencySymbol, token, getDoctorsData } = useContext(AppContext) as AppContextType;
+    const { doctors, currencySymbol, token, getDoctorsData } = useContext(AppContext) as AppContextType;  {/* Object distructions */}   // avoiding props drilling and data sharing
     
     const navigate = useNavigate()
 
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-    const [docInfo, setDocInfo] = useState<Doctor | null>(null);
+    const [docInfo, setDocInfo] = useState<Doctor | null>(null);    // handle the state in component
     const [docSlots, setDocSlots] = useState<Slot[][]>([]);
     const [slotIndex, setSlotIndex] = useState(0);
     const [slotTime, setSlotTime] = useState('');
@@ -53,7 +53,7 @@ const Appointment = () => {
 
     // Fetch doctor info - runs only when doctors array or docId changes
     useEffect(() => {
-        const foundDoc = doctors.find(doc => doc._id === docId);
+        const foundDoc = doctors.find(doc => doc._id === docId);         // useEffect hook eka component render unama passe wenna ona side effects handle karanna use karanawa.
         setDocInfo(foundDoc || null);
     }, [doctors, docId]);
 
@@ -284,7 +284,7 @@ const Appointment = () => {
             </div>
 
             <div className='sm:pl-4 pt-10'>
-                <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
+                <RelatedDoctors docId={docId} speciality={docInfo.speciality} />  {/* props pasing to related Doctors as customize props not default props*/}
             </div>
             
         </div>

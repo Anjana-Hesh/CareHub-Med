@@ -25,11 +25,11 @@ export interface Appointment {
   isCompleted: boolean;
 }
 
-interface AppointmentsResponse {
-  success: boolean;
-  message?: string;
-  appointments: Appointment[];
-}
+// interface AppointmentsResponse {
+//   success: boolean;
+//   message?: string;
+//   appointments: Appointment[];
+// }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 

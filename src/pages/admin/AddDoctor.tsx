@@ -144,7 +144,7 @@ const AddDoctor: React.FC = () => {
 
           <div className="lg:col-span-9">
             <form onSubmit={onSubmitHandler} className="bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-              <div className="p-4 sm:p-6 md:p-8">
+              <div className="p-4 sm:p-6 md:p-8 ml-10">
                
                 <div className="mb-6 sm:mb-10">
                   <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">

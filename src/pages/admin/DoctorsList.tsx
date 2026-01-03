@@ -4,7 +4,13 @@ import { AdminContext, type DoctorType } from '../../context/AdminContext';
 const DoctorsList: React.FC = () => {
   const adminContext = useContext(AdminContext);
 
-  if (!adminContext) return <div>Context not available</div>;
+  if (!adminContext) {
+    return (
+      <div className="p-6 text-center text-red-600 font-medium">
+        Admin context not available
+      </div>
+    );
+  }
 
   const { doctors, aToken, getAllDoctors, changeAvailability } = adminContext;
 
@@ -14,14 +20,29 @@ const DoctorsList: React.FC = () => {
     }
   }, [aToken, getAllDoctors]);
 
-  if (!doctors || doctors.length === 0) {
+  if (doctors === null || doctors === undefined) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 ml-100">
-        <h1 className="text-2xl font-bold mb-4">All Doctors</h1>
-        <p className="text-gray-600 mb-4">No doctors available at the moment.</p>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading doctors...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (doctors.length === 0) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-12">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
+          No Doctors Found
+        </h2>
+        <p className="text-gray-600 mb-8 text-center max-w-md">
+          There are no doctors in the system at the moment or the list could not be loaded.
+        </p>
         <button
           onClick={getAllDoctors}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
         >
           Refresh List
         </button>
@@ -30,33 +51,111 @@ const DoctorsList: React.FC = () => {
   }
 
   return (
-    <div className="m-5 max-h-[90vh] overflow-y-scroll ml-90">
-      <h1 className="text-lg font-medium mb-4">All Doctors</h1>
-      <div className="w-full flex flex-wrap gap-4">
-        {doctors.map((item: DoctorType) => (
-          <div
-            className="border border-indigo-200 rounded-xl max-w-56 overflow-hidden cursor-pointer group"
-            key={item._id}
-          >
-            <img
-              className="bg-indigo-50 group-hover:bg-[#5F6FFF] transition-all duration-500 w-full h-32 object-cover"
-              src={item.image}
-              alt={`${item.name} Image`}
-            />
-            <div className="p-4">
-              <p className="text-neutral-800 text-lg font-medium">{item.name}</p>
-              <p className="text-zinc-600 text-sm">{item.specialization}</p>
-              <div className="mt-2 flex items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={item.available}
-                  onChange={() => changeAvailability(item._id)}
-                />
-                <p>Available</p>
-              </div>
+    <div 
+      className="
+        min-h-screen 
+        bg-linear-to-br from-indigo-50 via-white to-blue-50 
+        pb-12
+        lg:ml-64
+      "
+    >
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 ml-10">
+        <div className="py-6 sm:py-8 border-b border-gray-200/80">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                All Doctors
+              </h1>
+              <p className="mt-2 text-gray-600">
+                {doctors.length} doctor{doctors.length !== 1 ? 's' : ''} registered
+              </p>
             </div>
           </div>
-        ))}
+        </div>
+
+        <div className="py-6 sm:py-10">
+          <div 
+            className="
+              grid 
+              grid-cols-1 
+              sm:grid-cols-2 
+              lg:grid-cols-3 
+              xl:grid-cols-4 
+              2xl:grid-cols-5 
+              gap-5 sm:gap-6
+            "
+          >
+            {doctors.map((doctor: DoctorType) => (
+              <div
+                key={doctor._id}
+                className="
+                  bg-white 
+                  rounded-xl 
+                  shadow-sm 
+                  border border-gray-200/80 
+                  overflow-hidden 
+                  hover:shadow-md 
+                  hover:border-indigo-200/60 
+                  transition-all duration-300 
+                  group
+                "
+              >
+                <div className="relative">
+                  <img
+                    src={doctor.image}
+                    alt={doctor.name}
+                    className="
+                      w-full 
+                      h-48 sm:h-52 
+                      object-cover 
+                      bg-indigo-50 
+                      group-hover:bg-indigo-100 
+                      transition-colors duration-500
+                    "
+                  />
+                  <div className="absolute top-3 right-3">
+                    <span
+                      className={`
+                        px-2.5 py-1 
+                        text-xs font-medium 
+                        rounded-full 
+                        border 
+                        ${doctor.available 
+                          ? 'bg-green-100 text-green-800 border-green-200' 
+                          : 'bg-red-100 text-red-800 border-red-200'}
+                      `}
+                    >
+                      {doctor.available ? 'Available' : 'Unavailable'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-lg font-semibold text-gray-900 truncate">
+                    {doctor.name}
+                  </h3>
+                  <p className="text-sm text-indigo-600 mt-1 font-medium">
+                    {doctor.specialization || 'General Medicine'}
+                  </p>
+
+                  <div className="mt-4 flex items-center">
+                    <label className="flex items-center gap-2.5 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={doctor.available}
+                        onChange={() => changeAvailability(doctor._id)}
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700 select-none">
+                        Available
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

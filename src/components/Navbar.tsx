@@ -127,7 +127,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${showMenu ? 'translate-x-0' : 'translate-x-full'} fixed top-0 right-0 w-full h-full z-[60] bg-white transition-transform duration-300 ease-in-out md:hidden`}>
+      <div className={`${showMenu ? 'translate-x-0' : 'translate-x-full'} fixed top-0 right-0 w-full h-full z-60 bg-white transition-transform duration-300 ease-in-out md:hidden`}>
         <div className='flex items-center justify-between px-5 py-6 border-b'>
           <img src={assets.logo} alt='Logo' className='w-36' />
           <img

@@ -250,7 +250,7 @@ const Appointment = () => {
                         docSlots[slotIndex].map((item, index) => (
                             <p 
                                 onClick={() => setSlotTime(item.time)} 
-                                className={`text-sm font-medium flex-shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors duration-200
+                                className={`text-sm font-medium shrink-0 px-5 py-2 rounded-full cursor-pointer transition-colors duration-200
                                     ${item.time === slotTime 
                                         ? 'bg-[#5f6FFF] text-white shadow-md' 
                                         : 'text-gray-600 border border-gray-300 hover:bg-gray-100' 

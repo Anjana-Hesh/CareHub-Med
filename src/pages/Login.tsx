@@ -146,7 +146,7 @@ const Login: React.FC = () => {
   }, [token, navigate])
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4'>
+    <div className='min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4'>
       <style>
         {`
           input::placeholder {
@@ -161,7 +161,7 @@ const Login: React.FC = () => {
           className='bg-white rounded-2xl shadow-2xl p-8 space-y-6 transform transition-all duration-300 hover:shadow-3xl'
         >
           <div className='text-center space-y-2'>
-            <div className='w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto flex items-center justify-center mb-4 shadow-lg'>
+            <div className='w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full mx-auto flex items-center justify-center mb-4 shadow-lg'>
               <svg className='w-8 h-8 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                 {state === 'Sign Up' ? (
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z' />
@@ -170,7 +170,7 @@ const Login: React.FC = () => {
                 )}
               </svg>
             </div>
-            <h1 className='text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'>
+            <h1 className='text-3xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'>
               {state === 'Sign Up' ? 'Create Account' : 'Welcome Back'}
             </h1>
             <p className='text-gray-600'>
@@ -251,7 +251,7 @@ const Login: React.FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none'
+            className='w-full bg-linear-to-r from-indigo-600 to-purple-600 text-white py-3.5 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none'
           >
             {isLoading ? (
               <span className='flex items-center justify-center gap-2'>

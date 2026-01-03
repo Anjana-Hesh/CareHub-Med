@@ -241,7 +241,7 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-  <div className="min-h-screen w-full bg-gradient-to-br from-indigo-50 via-blue-50 to-white p-4 sm:p-6 lg:p-10 ml-70">
+  <div className="min-h-screen w-full bg-linear-to-br from-indigo-50 via-blue-50 to-white p-4 sm:p-6 lg:p-10 ml-70">
 
     {/* HEADER */}
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
@@ -256,7 +256,7 @@ const Dashboard: React.FC = () => {
 
       <button
         onClick={() => setShowReport(true)}
-        className="px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition"
+        className="px-6 py-3 rounded-2xl bg-linear-to-r from-indigo-600 to-blue-600 text-white font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition"
       >
         📄 Generate Report
       </button>
@@ -290,7 +290,7 @@ const Dashboard: React.FC = () => {
     </div>
 
     {/* APPOINTMENTS */}
-    <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-2xl overflow-hidden border border-white/30">
+    <div className="bg-white/80 backdrop-blur-xl rounded-4xl shadow-2xl overflow-hidden border border-white/30">
       <div className="flex justify-between items-center px-8 py-6 border-b">
         <h2 className="text-xl font-bold text-gray-900">
           Recent Appointments

@@ -63,7 +63,7 @@ const MyProfile = () => {
 
   if (!userData) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-blue-500 text-6xl mb-4">👤</div>
           <p className="text-blue-800 text-xl">Loading profile...</p>
@@ -76,7 +76,7 @@ const MyProfile = () => {
   const profileImage = userData.image || assets.upload_icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto p-6">
    
         <div className="mb-8">
@@ -259,7 +259,7 @@ const MyProfile = () => {
               <button
                 onClick={updateProfile}
                 disabled={loading}
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-full hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-medium rounded-full hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Saving..." : "Save Changes"}
               </button>
@@ -267,7 +267,7 @@ const MyProfile = () => {
           ) : (
             <button
               onClick={() => setIsEdit(true)}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-full hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="px-8 py-3 bg-linear-to-r from-blue-600 to-blue-700 text-white font-medium rounded-full hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Edit Profile
             </button>

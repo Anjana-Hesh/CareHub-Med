@@ -94,12 +94,12 @@ const DoctorAppointment = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6 ml-70 w-full'>
+    <div className='min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 p-6 ml-70 w-full'>
       <div className='max-w-7xl mx-auto'>
         
         {/* Header */}
         <div className='mb-8'>
-          <h1 className='text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2'>
+          <h1 className='text-4xl font-bold bg-gralineardient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2'>
             All Appointments
           </h1>
           <div className='flex items-center justify-between'>
@@ -118,7 +118,7 @@ const DoctorAppointment = () => {
         <div className='bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-100'>
           
           {/* Table Header */}
-          <div className='bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4'>
+          <div className='bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-4'>
             <div className='hidden md:grid grid-cols-[0.5fr_2.5fr_1fr_0.8fr_2fr_1fr_1.5fr] gap-4 text-white font-semibold'>
               <p>#</p>
               <p>Patient</p>
@@ -277,7 +277,7 @@ const DoctorAppointment = () => {
                     onClick={() => goToPage(page as number)}
                     className={`w-10 h-10 rounded-lg font-semibold transition-all ${
                       currentPage === page
-                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110'
+                        ? 'bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >

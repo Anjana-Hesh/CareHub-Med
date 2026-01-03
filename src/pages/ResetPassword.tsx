@@ -62,7 +62,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4'>
+    <div className='min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 px-4'>
       <div className='bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md'>
         <div className='text-center mb-8'>
           <h1 className='text-3xl font-bold text-gray-800 mb-2'>
@@ -116,7 +116,7 @@ const ResetPassword = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed'
+            className='w-full bg-linear-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed'
           >
             {isLoading ? 'Updating password...' : 'Set New Password'}
           </button>

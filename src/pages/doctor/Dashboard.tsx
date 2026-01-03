@@ -244,7 +244,7 @@ const DoctorDashboard = () => {
 
   if (!dashData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center ml-100">
+      <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 flex items-center justify-center ml-100">
         <div className="text-center space-y-4">
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="text-gray-600 text-lg">Loading your dashboard...</p>
@@ -254,7 +254,7 @@ const DoctorDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 ml-70 w-full">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 ml-70 w-full">
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         
         {/* Header */}
@@ -266,7 +266,7 @@ const DoctorDashboard = () => {
             </div>
             <button
               onClick={() => setShowReport(true)}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 shadow-md"
+              className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 shadow-md"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -278,7 +278,7 @@ const DoctorDashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
+          <div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 mb-2">Total Earnings</p>
@@ -308,7 +308,7 @@ const DoctorDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
+          <div className="bg-linear-to-br from-purple-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 mb-2">Total Patients</p>
@@ -356,7 +356,7 @@ const DoctorDashboard = () => {
                     <tr key={index} className="hover:bg-gray-50 transition-colors">
                       <td className="p-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden">
+                          <div className="w-10 h-10 rounded-full bg-linear-to-r from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden">
                             {item.userData.image ? (
                               <img src={item.userData.image} alt={item.userData.name} className="w-full h-full object-cover" />
                             ) : (
@@ -397,7 +397,7 @@ const DoctorDashboard = () => {
                                   completeAppointment(item._id);
                                 }
                               }}
-                              className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:shadow-md transition-shadow text-sm"
+                              className="px-4 py-2 bg-linear-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:shadow-md transition-shadow text-sm"
                             >
                               Mark Complete
                             </button>
@@ -447,7 +447,7 @@ const DoctorDashboard = () => {
       {showReport && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
+            <div className="bg-linear-to-r from-blue-600 to-indigo-600 p-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                   <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
@@ -489,7 +489,7 @@ const DoctorDashboard = () => {
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Report Preview</h3>
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-100">
+                  <div className="bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-100">
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-center">
                         <p className="text-sm text-gray-600 mb-1">Earnings</p>
@@ -559,7 +559,7 @@ const DoctorDashboard = () => {
                 <button
                   onClick={downloadPDF}
                   disabled={isGeneratingPDF}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="flex-1 px-6 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isGeneratingPDF ? (
                     <>

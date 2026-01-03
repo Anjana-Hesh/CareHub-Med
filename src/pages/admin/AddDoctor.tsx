@@ -91,26 +91,26 @@ const AddDoctor: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 ml-70">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 lg:ml-70">
      
       <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 flex items-center">
-                👨‍⚕️ Add New Doctor
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 flex items-center gap-2">
+                👨‍⚕️ <span className="hidden sm:inline">Add New Doctor</span><span className="sm:hidden">Add Doctor</span>
               </h1>
-              <p className="text-gray-600 mt-2">Complete the form below to onboard a new specialist to our platform</p>
+              <p className="text-sm sm:text-base text-gray-600 mt-2 hidden sm:block">Complete the form below to onboard a new specialist to our platform</p>
             </div>
             <div className="hidden md:block">
-              <img src={assets.doctor_illustration || ''} alt="Doctor Illustration" className="w-32 h-32 opacity-70" />
+              <img src={assets.doctor_illustration || ''} alt="Doctor Illustration" className="w-20 h-20 sm:w-32 sm:h-32 opacity-70" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-12 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8">
           
           <div className="lg:col-span-3 hidden lg:block">
             <div className="sticky top-8 space-y-6">
@@ -135,7 +135,7 @@ const AddDoctor: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 border border-green-200">
+              <div className="bg-linear-to-r from-green-50 to-blue-50 rounded-2xl p-6 border border-green-200">
                 <h3 className="text-lg font-semibold text-green-800 mb-2">✅ Requirements</h3>
                 <p className="text-sm text-green-700">All fields marked with * are required. Upload valid medical credentials if needed.</p>
               </div>
@@ -143,19 +143,19 @@ const AddDoctor: React.FC = () => {
           </div>
 
           <div className="lg:col-span-9">
-            <form onSubmit={onSubmitHandler} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-              <div className="p-8">
+            <form onSubmit={onSubmitHandler} className="bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+              <div className="p-4 sm:p-6 md:p-8">
                
-                <div className="mb-10">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                <div className="mb-6 sm:mb-10">
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
                     📸 Profile Picture
                   </h2>
-                  <div className="flex items-center gap-6 text-gray-600">
+                  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-gray-600">
                     <label
                       htmlFor="doc-img"
                       className="relative cursor-pointer hover:scale-105 transition-transform group"
                     >
-                      <div className="relative w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-dashed border-gray-300 rounded-full overflow-hidden group-hover:border-blue-400 transition-colors shadow-md">
+                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-linear-to-br from-gray-100 to-gray-200 border-2 border-dashed border-gray-300 rounded-full overflow-hidden group-hover:border-blue-400 transition-colors shadow-md">
                         {docImg ? (
                           <img
                             className="w-full h-full object-cover"
@@ -192,24 +192,24 @@ const AddDoctor: React.FC = () => {
                       }}
                     />
 
-                    <div className="flex-1">
-                      <p className="font-medium text-gray-800">Upload Doctor's Profile Picture</p>
-                      <p className="text-sm text-gray-500 mt-1">Recommended: Square image, min 300x300px (JPEG/PNG)</p>
+                    <div className="flex-1 text-center sm:text-left">
+                      <p className="font-medium text-gray-800 text-sm sm:text-base">Upload Doctor's Profile Picture</p>
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1">Recommended: Square image, min 300x300px (JPEG/PNG)</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-10">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-10">
                   {/* Left Column */}
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">👤</span> Doctor Name *
                       </label>
                       <input
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="text"
                         placeholder="Enter doctor's full name"
                         required
@@ -217,13 +217,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">📧</span> Email Address *
                       </label>
                       <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="email"
                         placeholder="doctor@example.com"
                         required
@@ -231,13 +231,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">🔒</span> Password *
                       </label>
                       <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="password"
                         placeholder="Enter a secure password (min 8 chars)"
                         required
@@ -245,13 +245,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">⏱️</span> Years of Experience *
                       </label>
                       <select
                         value={experience}
                         onChange={(e) => setExperience(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm bg-white"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm bg-white text-sm sm:text-base"
                       >
                         {Array.from({ length: 50 }, (_, i) => (
                           <option key={i + 1} value={`${i + 1} Year${i + 1 > 1 ? 's' : ''}`}>
@@ -262,13 +262,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">💰</span> Consultation Fees *
                       </label>
                       <input
                         value={fees}
                         onChange={(e) => setFees(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="number"
                         placeholder="e.g., 500"
                         min="0"
@@ -279,15 +279,15 @@ const AddDoctor: React.FC = () => {
                   </div>
 
                   {/* Right Column */}
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">🏥</span> Medical Speciality *
                       </label>
                       <select
                         value={speciality}
                         onChange={(e) => setSpeciality(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm bg-white"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm bg-white text-sm sm:text-base"
                       >
                         <option value="General Physician">General Physician</option>
                         <option value="Gynecologist">Gynecologist</option>
@@ -310,13 +310,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">🎓</span> Education/Degree *
                       </label>
                       <input
                         value={degree}
                         onChange={(e) => setDegree(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="text"
                         placeholder="e.g., MBBS, MD in Cardiology"
                         required
@@ -324,13 +324,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">📍</span> Address Line 1 *
                       </label>
                       <input
                         value={address1}
                         onChange={(e) => setAddress1(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="text"
                         placeholder="Street address, city, state"
                         required
@@ -338,13 +338,13 @@ const AddDoctor: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                         <span className="mr-2">📍</span> Address Line 2
                       </label>
                       <input
                         value={address2}
                         onChange={(e) => setAddress2(e.target.value)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400"
+                        className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm placeholder-gray-400 text-sm sm:text-base"
                         type="text"
                         placeholder="Additional details, ZIP code"
                       />
@@ -353,34 +353,34 @@ const AddDoctor: React.FC = () => {
                 </div>
 
                 {/* About Section */}
-                <div className="space-y-3 mb-10">
-                  <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                <div className="space-y-3 mb-6 sm:mb-10">
+                  <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                     <span className="mr-2">📝</span> About Doctor *
                   </label>
                   <textarea
                     value={about}
                     onChange={(e) => setAbout(e.target.value)}
-                    className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm resize-none placeholder-gray-400"
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm resize-none placeholder-gray-400 text-sm sm:text-base"
                     placeholder="Write a brief biography highlighting the doctor's expertise, experience, and patient care philosophy..."
                     rows={6}
                     required
                   />
-                  <p className="text-sm text-gray-500 flex items-center">
+                  <p className="text-xs sm:text-sm text-gray-500 flex items-center">
                     <span className="w-1 h-1 bg-gray-400 rounded-full mr-2"></span>
                     Max 1000 characters. Be descriptive to attract more patients.
                   </p>
                 </div>
 
                 {/* Submit Button */}
-                <div className="flex justify-end pt-6 border-t border-gray-200">
+                <div className="flex justify-center sm:justify-end pt-4 sm:pt-6 border-t border-gray-200">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-12 py-4 rounded-xl font-semibold text-lg transition-all shadow-lg
+                    className={`w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all shadow-lg text-white
                       ${
                         isSubmitting
                           ? "bg-gray-400 cursor-not-allowed"
-                          : "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700"
+                          : "bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700"
                       }
                     `}
                   >

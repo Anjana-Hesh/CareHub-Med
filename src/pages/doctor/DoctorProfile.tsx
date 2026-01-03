@@ -134,7 +134,7 @@ const DoctorProfile = () => {
 
   if (!initialProfileData || !editableData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center ml-100">
+      <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center ml-100">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Loading profile...</p>
@@ -230,7 +230,7 @@ const DoctorProfile = () => {
                       className='sr-only peer'
                     />
                     {/* 🟢 FIXED: Removed extra dot from className. */}
-                    <div className='w-14 h-7 bg-white/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[""] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500'></div>
+                    <div className='w-14 h-7 bg-white/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[""] after:absolute after:top-0.5 after:left-1 after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500'></div>
                   </label>
                   <span className='text-sm font-semibold'>
                     {editableData.available ? 'Available for Appointments' : 'Currently Unavailable'}

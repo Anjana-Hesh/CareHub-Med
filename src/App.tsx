@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { AdminContext } from './context/AdminContext'
 import { DoctorContext } from './context/DoctorContext'
-import { AppContext } from './context/AppContext'
+// import { AppContext } from './context/AppContext'
 
 import Navbar from './components/Navbar'
 import Sidebar from './components/SideBar'
@@ -55,11 +55,11 @@ const ResetPassword = lazy (() => import('./pages/ResetPassword'));
 const App = () => {
   const aToken = useContext(AdminContext)?.aToken
   const dToken = useContext(DoctorContext)?.dToken
-  const { token } = useContext(AppContext)
+  // const { token } = useContext(AppContext)
 
   const isAdmin = !!aToken   // value convert to boolean
   const isDoctor = !!dToken
-  const isUser = !!token
+  // const isUser = !!token
 
   // Admin / Doctor Dashboard Layout
   if (isAdmin || isDoctor) {

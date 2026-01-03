@@ -16,7 +16,7 @@ const DoctorsList: React.FC = () => {
 
   if (!doctors || doctors.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 ml-100">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 ml-100">
         <h1 className="text-2xl font-bold mb-4">All Doctors</h1>
         <p className="text-gray-600 mb-4">No doctors available at the moment.</p>
         <button
@@ -33,7 +33,7 @@ const DoctorsList: React.FC = () => {
     <div className="m-5 max-h-[90vh] overflow-y-scroll ml-90">
       <h1 className="text-lg font-medium mb-4">All Doctors</h1>
       <div className="w-full flex flex-wrap gap-4">
-        {doctors.map((item: DoctorType, index: number) => (
+        {doctors.map((item: DoctorType) => (
           <div
             className="border border-indigo-200 rounded-xl max-w-56 overflow-hidden cursor-pointer group"
             key={item._id}

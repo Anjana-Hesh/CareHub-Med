@@ -5,7 +5,7 @@ import Banner from '../components/Banner'
 
 const Home = () => {
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50'>
+    <div className='min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50'>
 
       <section className='animate-fade-in'>
         <Header />
@@ -14,7 +14,7 @@ const Home = () => {
       <section className='py-12 px-4'>
         <div className='max-w-7xl mx-auto'>
           <div className='text-center mb-10'>
-            <h2 className='text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
+            <h2 className='text-3xl md:text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
               Find by Speciality
             </h2>
             <p className='text-gray-600'>
@@ -28,7 +28,7 @@ const Home = () => {
       <section className='py-12 px-4 bg-white/50'>
         <div className='max-w-7xl mx-auto'>
           <div className='text-center mb-10'>
-            <h2 className='text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
+            <h2 className='text-3xl md:text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
               Top Doctors
             </h2>
             <p className='text-gray-600'>

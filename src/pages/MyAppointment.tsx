@@ -113,7 +113,7 @@ const MyAppointment: React.FC = () => {
     return (
       <div className="flex flex-col sm:flex-row gap-4 p-4 border-b hover:bg-gray-50 transition-colors">
        
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <img
             className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg bg-indigo-50"
             src={docData.image || '/placeholder.png'}
@@ -142,7 +142,7 @@ const MyAppointment: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 min-w-[160px]">
+        <div className="flex flex-col gap-2 min-w-40">
           {isActive && (
             <>
               <button 

@@ -60,7 +60,7 @@ const AllAppointment: React.FC = () => {
   const handleNext = () => handlePageChange(currentPage + 1);
 
   return (
-  <div className="min-h-screen ml-70 w-full bg-gradient-to-br overflow-y-scroll from-indigo-50 via-blue-50 to-white p-4 sm:p-6 lg:p-10">
+  <div className="min-h-screen ml-70 w-full bg-linear-to-br overflow-y-scroll from-indigo-50 via-blue-50 to-white p-4 sm:p-6 lg:p-10">
     <div className="max-w-7xl mx-auto">
 
       {/* HEADER */}
@@ -76,7 +76,7 @@ const AllAppointment: React.FC = () => {
       </div>
 
       {/* TABLE CARD */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-white/30 overflow-hidden">
+      <div className="bg-white/80 backdrop-blur-xl rounded-4xl shadow-2xl border border-white/30 overflow-hidden">
 
         {/* TABLE HEADER */}
         <div className="px-8 py-6 border-b flex justify-between items-center">

@@ -57,10 +57,10 @@ const Doctor: React.FC = () => {
   }, [doctors, speciality]);
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4'>
+    <div className='min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 py-12 px-4'>
       
       <div className='max-w-7xl mx-auto mb-8'>
-        <h1 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
+        <h1 className='text-4xl md:text-5xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3'>
           Find Your Doctor
         </h1>
         <p className='text-gray-600'>Browse through our qualified doctors by specialty</p>
@@ -70,7 +70,7 @@ const Doctor: React.FC = () => {
         
         <button
           onClick={() => setShowFilter(prev => !prev)}
-          className='lg:hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg flex items-center justify-center gap-2'
+          className='lg:hidden bg-linear-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg flex items-center justify-center gap-2'
         >
           <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z' />
@@ -78,7 +78,7 @@ const Doctor: React.FC = () => {
           Filter by Specialty
         </button>
 
-        <div className={`${showFilter ? 'flex' : 'hidden'} lg:flex flex-col gap-3 lg:w-64 flex-shrink-0`}>
+        <div className={`${showFilter ? 'flex' : 'hidden'} lg:flex flex-col gap-3 lg:w-64 shrink-0`}>
           <div className='bg-white rounded-xl shadow-lg p-4'>
             <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
               <svg className='w-5 h-5 text-indigo-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -93,7 +93,7 @@ const Doctor: React.FC = () => {
                   onClick={() => speciality === spec.name ? navigate('/doctors') : navigate(`/doctors/${spec.name}`)}
                   className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-center gap-3 ${
                     speciality === spec.name 
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md' 
+                      ? 'bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-md' 
                       : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -136,7 +136,7 @@ const Doctor: React.FC = () => {
                     </h3>
                     <p className='text-gray-600 text-sm mb-3'>{item.speciality}</p>
                     
-                    <button className='w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300'>
+                    <button className='w-full bg-linear-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300'>
                       Book Appointment
                     </button>
                   </div>

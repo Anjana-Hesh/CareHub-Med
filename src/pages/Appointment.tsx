@@ -195,7 +195,7 @@ const Appointment = () => {
                     <img className='bg-[#5f6FFF] w-full sm:max-w-72 rounded-lg object-cover' src={docInfo.image} alt="Doctor" />
                 </div>
                 
-                <div className='flex-1 border border-gray-200 rounded-lg p-6 sm:p-8 bg-white shadow-md mx-2 sm:mx-0 mt-[-80px] sm:mt-0 relative'>
+                <div className='flex-1 border border-gray-200 rounded-lg p-6 sm:p-8 bg-white shadow-md mx-2 sm:mx-0 -mt-20 sm:mt-0 relative'>
                     <p className='flex items-center gap-2 text-2xl font-semibold text-gray-900'>
                         {docInfo.name}
                         <img className='w-5' src={assets.verified_icon} alt="Verified icon" />

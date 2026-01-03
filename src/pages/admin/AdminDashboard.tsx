@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
   const adminContext = useContext(AdminContext);
   const appContext = useContext(AppContext);
 
-  const ADMIN_PRIMARY_COLOR = 'rgb(95, 111, 255)'; 
+  // const ADMIN_PRIMARY_COLOR = 'rgb(95, 111, 255)'; 
 
   if (!adminContext || !appContext) {
     return <div>Context not available</div>;

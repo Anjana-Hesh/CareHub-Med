@@ -27,14 +27,73 @@ interface DashData {
   latestAppointments: Appointment[]
 }
 
-// Date eka ada ho pass date ekakda kiyala check kirima
-const isDateReached = (slotDate: string): boolean => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Ada dawase welawa zero karanna
-  
-  const appointmentDate = new Date(slotDate);
-  return appointmentDate <= today;
+// =========================================================================
+// DATE & TIME VALIDATION FUNCTION
+// =========================================================================
+
+// Date saha Time ekama check karanna function
+// Format: slotDate = "2-1-2026" (day-month-year) or ISO format
+//         slotTime = "10:30 AM" or "2:00 PM"
+// const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
+//   try {
+//     const today = new Date();
+
+    
+//   } catch (error) {
+//     console.error('Error parsing date/time:', error);
+//     return false;
+//   }
+// };
+
+const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
+  try {
+    // =========================
+    // 1️⃣ Parse slotDate (DD-MM-YYYY)
+    // =========================
+    const [day, month, year] = slotDate.split('-').map(Number);
+
+    // =========================
+    // 2️⃣ Parse slotTime (hh:mm AM/PM)
+    // =========================
+    const [time, modifier] = slotTime.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    // =========================
+    // 3️⃣ Create appointment Date object
+    // =========================
+    const appointmentDateTime = new Date(
+      year,
+      month - 1,
+      day,
+      hours,
+      minutes,
+      0,
+      0
+    );
+
+    // =========================
+    // 4️⃣ Current Date & Time
+    // =========================
+    const now = new Date();
+
+    // =========================
+    // 5️⃣ Check if appointment time has passed
+    // =========================
+    return appointmentDateTime <= now;
+
+  } catch (error) {
+    console.error('Error parsing appointment date/time:', error);
+    return false;
+  }
 };
+
 
 const DoctorDashboard = () => {
   const doctorContext = useContext(DoctorContext)
@@ -70,19 +129,13 @@ const DoctorDashboard = () => {
   const downloadPDF = async () => {
     if (!dashData) return
     
-    setIsGeneratingPDF(true)   // loading status manage
+    setIsGeneratingPDF(true)
     
     try {
       const doc = new jsPDF('portrait', 'mm', 'a4')
       
       doc.setFillColor(59, 130, 246)      
-      doc.rect(0, 0, 210, 40, 'F')        // Drow a rectangle
-                                          // Parameters:
-                                            // 0 = x position (left margin) - 0mm
-                                            // 0 = y position (top margin) - 0mm  
-                                            // 210 = width (A4 paper width - 210mm)
-                                            // 40 = height (header height - 40mm)
-                                            // 'F' = Fill mode 
+      doc.rect(0, 0, 210, 40, 'F')
       
       doc.setTextColor(255, 255, 255)
       doc.setFontSize(28)
@@ -156,7 +209,7 @@ const DoctorDashboard = () => {
           3: { cellWidth: 30 },
           4: { cellWidth: 45 }
         },
-        didDrawCell: (data: any) => {    // color changed for status
+        didDrawCell: (data: any) => {
           if (data.section === 'body' && data.column.index === 4) {
             const status = data.cell.raw
             if (status === 'Cancelled') {
@@ -225,7 +278,6 @@ const DoctorDashboard = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {/* Earnings Card */}
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
@@ -241,7 +293,6 @@ const DoctorDashboard = () => {
             </div>
           </div>
 
-          {/* Appointments Card */}
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
@@ -257,7 +308,6 @@ const DoctorDashboard = () => {
             </div>
           </div>
 
-          {/* Patients Card */}
           <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
@@ -335,16 +385,15 @@ const DoctorDashboard = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => {
-                                if (!isDateReached(item.slotDate)) {
-                                  // Date eka thama awith nathnam alert eka danna
+                                // completeAppointment(item._id);
+                                if (!isAppointmentTimePassed(item.slotDate, item.slotTime)) {
                                   Swal.fire({
                                     icon: 'info',
                                     title: 'Wait a moment!',
-                                    text: `The appointment date (${slotDateFormat(item.slotDate)}) has not arrived yet. You can only mark it as complete on the scheduled day.`,
+                                    text: `The appointment (${slotDateFormat(item.slotDate)} at ${item.slotTime}) has not occurred yet. You can only mark it as complete after the scheduled time.`,
                                     confirmButtonColor: '#5f6FFF',
                                   });
                                 } else {
-                                  // Date eka hari nam pamanak complete function eka run karanna
                                   completeAppointment(item._id);
                                 }
                               }}
@@ -353,7 +402,19 @@ const DoctorDashboard = () => {
                               Mark Complete
                             </button>
                             <button
-                              onClick={() => cancelAppointment(item._id)}
+                              onClick={() => {
+                                  // cancelAppointment(item._id);
+                                if (!isAppointmentTimePassed(item.slotDate, item.slotTime)) {
+                                  Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Cannot Cancel',
+                                    text: 'This appointment time has not passed yet. So You cannot cancel appointments.',
+                                    confirmButtonColor: '#5f6FFF',
+                                  });
+                                } else {
+                                  cancelAppointment(item._id);
+                                }
+                              }}
                               className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors text-sm"
                             >
                               Cancel
@@ -406,7 +467,6 @@ const DoctorDashboard = () => {
             </div>
 
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
-              {/* Report Period Selection */}
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Report Period</h3>
                 <div className="grid grid-cols-4 gap-3">
@@ -426,7 +486,6 @@ const DoctorDashboard = () => {
                 </div>
               </div>
 
-              {/* Report Preview */}
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Report Preview</h3>
                 <div className="space-y-4">
@@ -447,7 +506,6 @@ const DoctorDashboard = () => {
                     </div>
                   </div>
 
-                  {/* Appointments Summary */}
                   <div className="border rounded-xl overflow-hidden">
                     <div className="bg-gray-50 p-4 border-b">
                       <h4 className="font-medium text-gray-900">Appointments Summary</h4>
@@ -473,7 +531,6 @@ const DoctorDashboard = () => {
                 </div>
               </div>
 
-              {/* Report Format */}
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Report Format</h3>
                 <div className="bg-gray-50 rounded-xl p-4">
@@ -492,7 +549,6 @@ const DoctorDashboard = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex gap-3 pt-6 border-t">
                 <button
                   onClick={() => setShowReport(false)}

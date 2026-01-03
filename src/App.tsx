@@ -12,7 +12,7 @@ import Sidebar from './components/SideBar'
 import Footer from './components/Footer'
 
 // import Login from './pages/Login'
-const Login = lazy (() => import('./pages/Login')); 
+const Login = lazy (() => import('./pages/Login'));       // In normal import the all uis load to upfront when lead app starts but in lazy loading the particular component will load when it is required.
 // import ForgetPassword from './pages/ForgetPassword'
 const ForgetPassword = lazy (() => import('./pages/ForgetPassword') );
 

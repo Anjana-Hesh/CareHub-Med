@@ -82,29 +82,132 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const isDateReached = (appointmentDate: string): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to compare only dates
+  // const isDateReached = (appointmentDate: string): boolean => {
+  //   const today = new Date();
+  //   today.setHours(0, 0, 0, 0); // Reset time to compare only dates
   
-    const targetDate = new Date(appointmentDate);
-    return targetDate <= today;
-  };
+  //   const targetDate = new Date(appointmentDate);
+  //   return targetDate <= today;
+  // };
+
+
+  // const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
+  //   try {
+  //     let appointmentDateTime: Date;
+      
+  //     // Check if it's ISO format or custom format
+  //     if (slotDate.includes('T') || (slotDate.includes('-') && slotDate.split('-').length === 3 && slotDate.split('-')[0].length === 4)) {
+  //       // ISO format: "2026-01-02"
+  //       appointmentDateTime = new Date(slotDate);
+  //     } else {
+  //       // Custom format: "2-1-2026" (day-month-year)
+  //       const dateParts = slotDate.split('-');
+  //       const day = parseInt(dateParts[0]);
+  //       const month = parseInt(dateParts[1]) - 1; // Month is 0-indexed in JS
+  //       const year = parseInt(dateParts[2]);
+  //       appointmentDateTime = new Date(year, month, day);
+  //     }
+      
+  //     // Parse the slot time (format: "10:30 AM" or "2:00 PM")
+  //     const timeStr = slotTime.trim();
+  //     const timeParts = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+      
+  //     if (!timeParts) {
+  //       console.error('Invalid time format:', slotTime);
+  //       return false;
+  //     }
+      
+  //     let hours = parseInt(timeParts[1]);
+  //     const minutes = parseInt(timeParts[2]);
+  //     const period = timeParts[3].toUpperCase();
+      
+  //     // Convert to 24-hour format
+  //     if (period === 'PM' && hours !== 12) {
+  //       hours += 12;
+  //     } else if (period === 'AM' && hours === 12) {
+  //       hours = 0;
+  //     }
+      
+  //     // Set the time on the appointment date
+  //     appointmentDateTime.setHours(hours, minutes, 0, 0);
+      
+  //     // Current datetime
+  //     const now = new Date();
+      
+  //     // Check if appointment time has passed
+  //     return appointmentDateTime <= now;
+      
+  //   } catch (error) {
+  //     console.error('Error parsing date/time:', error);
+  //     return false;
+  //   }
+  // };
+
+  const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
+  try {
+    // =========================
+    // 1️⃣ Parse slotDate (DD-MM-YYYY)
+    // =========================
+    const [day, month, year] = slotDate.split('-').map(Number);
+
+    // =========================
+    // 2️⃣ Parse slotTime (hh:mm AM/PM)
+    // =========================
+    const [time, modifier] = slotTime.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    // =========================
+    // 3️⃣ Create appointment Date object
+    // =========================
+    const appointmentDateTime = new Date(
+      year,
+      month - 1,
+      day,
+      hours,
+      minutes,
+      0,
+      0
+    );
+
+    // =========================
+    // 4️⃣ Current Date & Time
+    // =========================
+    const now = new Date();
+
+    // =========================
+    // 5️⃣ Check if appointment time has passed
+    // =========================
+    return appointmentDateTime <= now;
+
+  } catch (error) {
+    console.error('Error parsing appointment date/time:', error);
+    return false;
+  }
+};
+
 
   const completeAppointment = async (appointmentId: string) => {
     try {
 
-      const appointment = appointments.find(app => app._id === appointmentId);
-  
-  if (appointment && !isDateReached(appointment.date)) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Wait a moment!',
-      text: 'The appointment date has not arrived yet. You can only complete it on or after the scheduled date.',
-      confirmButtonColor: '#5f6FFF',
-    });
-    return;
-  }
-      
+      // const appointment = appointments.find(app => app._id === appointmentId);
+
+      // if (!isAppointmentTimePassed(appointments.find(app => app._id === appointmentId)?.date || '', appointments.find(app => app._id === appointmentId)?.time || '')) {
+      //   Swal.fire({
+      //     icon: 'info',
+      //     title: 'Wait a moment!',
+      //     text: 'The appointment date has not arrived yet. You can only complete it on or after the scheduled date.',
+      //     confirmButtonColor: '#5f6FFF',
+      //   });
+      //   return;
+      // }
+          
       const data = await doctorCompleteAppintmentsService(appointmentId);
 
       if (data.success) {
@@ -123,15 +226,15 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
 
     const appointment = appointments.find(app => app._id === appointmentId);
 
-    if (appointment && !isDateReached(appointment.date)) {
-      Swal.fire({
-        icon: 'info',
-        title: 'Cannot Cancel Yet',
-        text: 'The appointment date has not arrived yet. You can only manage it on or after the scheduled date.',
-        confirmButtonColor: '#5f6FFF',
-      });
-      return;
-    }
+    // if (!isAppointmentTimePassed(appointment?.date || '', appointment?.time || '')) {
+    //   Swal.fire({
+    //     icon: 'info',
+    //     title: 'Cannot Cancel Yet',
+    //     text: 'The appointment date has not arrived yet. You can only manage it on or after the scheduled date.',
+    //     confirmButtonColor: '#5f6FFF',
+    //   });
+    //   return;
+    // }
 
     const result = await Swal.fire({
         title: 'Cancel Appointment?',

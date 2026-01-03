@@ -20,12 +20,12 @@ interface Appointment {
   isCompleted: boolean
 }
 
-interface DashData {
-  earnings: number
-  appointments: number
-  patients: number
-  latestAppointments: Appointment[]
-}
+// interface DashData {
+//   earnings: number
+//   appointments: number
+//   patients: number
+//   latestAppointments: Appointment[]
+// }
 
 // =========================================================================
 // DATE & TIME VALIDATION FUNCTION
@@ -293,7 +293,7 @@ const DoctorDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
+          <div className="bg-linear-to-br from-emerald-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-emerald-100 mb-2">Appointments</p>

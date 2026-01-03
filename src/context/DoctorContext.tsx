@@ -143,54 +143,54 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
   //   }
   // };
 
-  const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
-  try {
-    // =========================
-    // 1️⃣ Parse slotDate (DD-MM-YYYY)
-    // =========================
-    const [day, month, year] = slotDate.split('-').map(Number);
+//   const isAppointmentTimePassed = (slotDate: string, slotTime: string): boolean => {
+//   try {
+//     // =========================
+//     // 1️⃣ Parse slotDate (DD-MM-YYYY)
+//     // =========================
+//     const [day, month, year] = slotDate.split('-').map(Number);
 
-    // =========================
-    // 2️⃣ Parse slotTime (hh:mm AM/PM)
-    // =========================
-    const [time, modifier] = slotTime.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
+//     // =========================
+//     // 2️⃣ Parse slotTime (hh:mm AM/PM)
+//     // =========================
+//     const [time, modifier] = slotTime.split(' ');
+//     let [hours, minutes] = time.split(':').map(Number);
 
-    if (modifier === 'PM' && hours !== 12) {
-      hours += 12;
-    }
-    if (modifier === 'AM' && hours === 12) {
-      hours = 0;
-    }
+//     if (modifier === 'PM' && hours !== 12) {
+//       hours += 12;
+//     }
+//     if (modifier === 'AM' && hours === 12) {
+//       hours = 0;
+//     }
 
-    // =========================
-    // 3️⃣ Create appointment Date object
-    // =========================
-    const appointmentDateTime = new Date(
-      year,
-      month - 1,
-      day,
-      hours,
-      minutes,
-      0,
-      0
-    );
+//     // =========================
+//     // 3️⃣ Create appointment Date object
+//     // =========================
+//     const appointmentDateTime = new Date(
+//       year,
+//       month - 1,
+//       day,
+//       hours,
+//       minutes,
+//       0,
+//       0
+//     );
 
-    // =========================
-    // 4️⃣ Current Date & Time
-    // =========================
-    const now = new Date();
+//     // =========================
+//     // 4️⃣ Current Date & Time
+//     // =========================
+//     const now = new Date();
 
-    // =========================
-    // 5️⃣ Check if appointment time has passed
-    // =========================
-    return appointmentDateTime <= now;
+//     // =========================
+//     // 5️⃣ Check if appointment time has passed
+//     // =========================
+//     return appointmentDateTime <= now;
 
-  } catch (error) {
-    console.error('Error parsing appointment date/time:', error);
-    return false;
-  }
-};
+//   } catch (error) {
+//     console.error('Error parsing appointment date/time:', error);
+//     return false;
+//   }
+// };
 
 
   const completeAppointment = async (appointmentId: string) => {
@@ -224,7 +224,7 @@ const DoctorContextProvider = ({ children }: { children: ReactNode }) => {
 
   const cancelAppointment = async (appointmentId: string) => {
 
-    const appointment = appointments.find(app => app._id === appointmentId);
+    // const appointment = appointments.find(app => app._id === appointmentId);
 
     // if (!isAppointmentTimePassed(appointment?.date || '', appointment?.time || '')) {
     //   Swal.fire({

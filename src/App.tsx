@@ -182,7 +182,7 @@ const App = () => {
   const isDoctor = !!dToken
 
   // Admin / Doctor Dashboard Layout
-  if (isAdmin) {
+  if (isAdmin || isDoctor) {
     return (
       <div className='bg-[#F8F9FD]'>
         <ToastContainer />

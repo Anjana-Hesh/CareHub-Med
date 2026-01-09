@@ -323,7 +323,7 @@ const AddDoctor: React.FC = () => {
                         onChange={(e) => setSpeciality(e.target.value)}
                         className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm bg-white text-sm sm:text-base"
                       >
-                        <option value="General Physician">General Physician</option>
+                        <option value="General Physician">General physician</option>
                         <option value="Gynecologist">Gynecologist</option>
                         <option value="Dermatologist">Dermatologist</option>
                         <option value="Pediatrician">Pediatrician</option>
@@ -438,7 +438,7 @@ const AddDoctor: React.FC = () => {
                   />
 
                   <p className="text-xs sm:text-sm text-gray-500">
-                    AI generates a 50–100 word professional doctor description. You can edit it anytime.
+                    AI generates a 50-100 word professional doctor description. You can edit it anytime.
                   </p>
                 </div>
 

@@ -3,6 +3,7 @@ import { AdminContext } from "../../context/AdminContext";
 import { toast } from "react-toastify";
 import { addDoctorService } from "../../services/admin";
 import { assets } from "../../assets/assetsAdmin";
+import { generateDoctorDescriptionService } from "../../services/doctor";
 
 const AddDoctor: React.FC = () => {
   const [docImg, setDocImg] = useState<File | null>(null);
@@ -17,6 +18,7 @@ const AddDoctor: React.FC = () => {
   const [address1, setAddress1] = useState<string>("");
   const [address2, setAddress2] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const adminCtx = useContext(AdminContext);
 
@@ -89,6 +91,38 @@ const AddDoctor: React.FC = () => {
       setIsSubmitting(false);
     }
   };
+
+
+  const generateAboutWithAI = async () => {
+    if (!name || !speciality || !experience || !degree) {
+      return toast.error("Please fill Name, Speciality, Experience & Degree first");
+    }
+
+    try {
+      setIsGenerating(true);
+
+      const data = await generateDoctorDescriptionService({
+        name,
+        speciality,
+        experience,
+        degree,
+      });
+
+      if (data.success) {
+        setAbout(data.description);
+        toast.success("AI description generated ✨");
+      } else {
+        toast.error(data.message || "AI generation failed");
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error("AI generation error");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 lg:ml-70">
@@ -353,7 +387,7 @@ const AddDoctor: React.FC = () => {
                 </div>
 
                 {/* About Section */}
-                <div className="space-y-3 mb-6 sm:mb-10">
+                {/* <div className="space-y-3 mb-6 sm:mb-10">
                   <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
                     <span className="mr-2">📝</span> About Doctor *
                   </label>
@@ -369,7 +403,45 @@ const AddDoctor: React.FC = () => {
                     <span className="w-1 h-1 bg-gray-400 rounded-full mr-2"></span>
                     Max 1000 characters. Be descriptive to attract more patients.
                   </p>
+                </div> */}
+
+                {/* About Section */}
+                <div className="space-y-3 mb-6 sm:mb-10">
+                  <div className="flex justify-between items-center">
+                    <label className="text-xs sm:text-sm font-semibold text-gray-700 flex items-center">
+                      <span className="mr-2">📝</span> About Doctor *
+                    </label>
+
+                    <button
+                      type="button"
+                      onClick={generateAboutWithAI}
+                      disabled={isGenerating}
+                      className={`text-xs sm:text-sm px-3 py-2 rounded-lg font-medium transition
+                        ${
+                          isGenerating
+                            ? "bg-gray-300 cursor-not-allowed"
+                            : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                        }
+                      `}
+                    >
+                      {isGenerating ? "✨ Generating..." : "🤖 Generate with AI"}
+                    </button>
+                  </div>
+
+                  <textarea
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm resize-none placeholder-gray-400 text-sm sm:text-base"
+                    placeholder="AI can generate this automatically or you can write manually..."
+                    rows={6}
+                    required
+                  />
+
+                  <p className="text-xs sm:text-sm text-gray-500">
+                    AI generates a 50–100 word professional doctor description. You can edit it anytime.
+                  </p>
                 </div>
+
 
                 {/* Submit Button */}
                 <div className="flex justify-center sm:justify-end pt-4 sm:pt-6 border-t border-gray-200">

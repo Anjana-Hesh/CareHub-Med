@@ -109,3 +109,29 @@ export const docLogin = async (email: string , password: string) => {
 
     return resp.data
 }
+
+export const generateDoctorDescriptionService = async (payload: {
+    name: string;
+    speciality: string;
+    experience: string;
+    degree: string;
+}) => {
+const aToken = localStorage.getItem("aToken");
+
+if (!aToken) {
+    throw new Error("Admin token not found");
+}
+
+const resp = await api.post(
+    "/admin/doctor-description",
+    payload,
+    {
+    headers: {
+        atoken: aToken,
+    },
+    }
+);
+
+return resp.data;
+};
+
